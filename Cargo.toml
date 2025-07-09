@@ -1,0 +1,9 @@
+[package]
+name = "prueba"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rocket = { version = "0.5.1", features = ["json"] }
+maud = { version = "0.26.0", features = ["rocket"] }
+chrono = { version = "0.4.38", features = ["serde"] }

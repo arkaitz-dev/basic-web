@@ -1,0 +1,18 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Tu Nombre",
+  "url": "https://your-domain.com/",
+  "jobTitle": "Desarrollador Full Stack",
+  "knowsAbout": ["Rust", "JavaScript", "React", "Node.js", "Web Development", "Full Stack Development"],
+  "sameAs": [
+    "https://linkedin.com/in/tu-perfil-aqui",
+    "https://github.com/tu-usuario-aqui"
+  ],
+  "email": "mailto:tu.email@ejemplo.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Madrid",
+    "addressCountry": "ES"
+  }
+}

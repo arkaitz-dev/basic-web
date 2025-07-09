@@ -1,0 +1,992 @@
+/* Common CSS file */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background: linear-gradient(
+        135deg,
+        #667eea 0%,
+        #764ba2 100%
+    ); /* Specific gradient, theme with variables if it needs to change */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-toggle-btn:focus {
+    outline: 2px solid var(--focus-color, var(--accent));
+    outline-offset: 2px;
+}
+
+.theme-icon {
+    font-size: 1.2rem;
+    line-height: 1;
+    transition: opacity 0.3s ease;
+}
+
+.icon-hidden {
+    display: none !important;
+}
+
+/* === Structural Rules (formerly in light.css) === */
+
+article h1,
+aside h1,
+nav h1,
+section h1 {
+    font-size: 2.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    line-height: 1.2;
+    /* color is themed */
+}
+
+main {
+    flex-grow: 1;
+    margin-top: 70px; /* Approximate header height; adjust if header height is dynamic or different */
+    min-height: calc(
+        100vh - 70px - 50px
+    ); /* Adjust based on actual header and footer heights */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    z-index: 1000;
+    padding: 1rem 0;
+    /* background, box-shadow are themed */
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition:
+        color 0.3s ease,
+        transform 0.2s ease;
+    text-decoration: none;
+    /* color is themed */
+}
+
+.logo:hover {
+    transform: scale(1.05);
+    /* color is themed */
+}
+
+.hamburger {
+    display: none; /* Shows only in mobile via media query */
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1001; /* Above header content, below mobile nav links */
+    position: relative; /* For z-index and potential positioning */
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    margin: 3px 0;
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease,
+        background-color 0.3s ease;
+    border-radius: 2px;
+    display: block;
+    /* background is themed */
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    font-weight: 500;
+    transition:
+        color 0.3s ease,
+        background-color 0.3s ease,
+        border-color 0.3s ease;
+    padding: 0.5rem 1rem; /* Standard padding */
+    border-radius: 5px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent; /* Underline effect preparation */
+    /* color is themed */
+}
+
+/* .nav-links a:hover, .nav-links a.active are themed for color and border-bottom-color */
+
+.section {
+    /* min-height: 100vh; /* Reconsider if every section must be full viewport height */
+    padding: 3rem 0; /* Reduced default padding */
+    display: flex; /* For vertical centering of content, if desired */
+    align-items: center; /* For vertical centering of content */
+    /* border-bottom is themed */
+}
+
+.section:last-of-type {
+    /* Remove border from last section if applied globally */
+    border-bottom: none;
+}
+
+.content-card {
+    backdrop-filter: blur(5px); /* Subtle blur for cards */
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 15px; /* Softer radius */
+    padding: 2rem; /* Standardized padding */
+    width: 100%;
+    margin: 1.5rem 0; /* Standardized margin */
+    animation: fadeInUp 0.5s ease-out forwards;
+    /* background, box-shadow, border, color are themed */
+}
+
+.hero {
+    text-align: center;
+    min-height: calc(
+        80vh - 70px
+    ); /* Example: make hero substantial, minus header */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hero h1 {
+    font-size: 3rem; /* Responsive adjustments below */
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+    /* color is themed */
+}
+
+.hero .subtitle {
+    font-size: 1.3rem; /* Responsive adjustments below */
+    margin-bottom: 1.5rem;
+    font-weight: 400; /* Lighter than heading */
+    /* color is themed */
+}
+
+.hero p {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 1.5rem auto;
+    /* color is themed */
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 0.8rem 1.8rem; /* Slightly smaller padding */
+    text-decoration: none;
+    border-radius: 30px; /* Pill shape */
+    font-weight: 600;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    /* background, color, box-shadow are themed */
+}
+
+.cta-button:hover {
+    transform: translateY(-2px) scale(1.02); /* Subtle lift and scale */
+}
+
+.about-profile-placeholder {
+    width: 200px; /* Smaller placeholder */
+    height: 200px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    margin: 0 auto 2rem auto; /* Add bottom margin */
+    /* background, border, color are themed */
+}
+
+.section-title {
+    /* Generic class for all section titles */
+    text-align: center;
+    margin-bottom: 2.5rem;
+    font-size: 2.2rem; /* Standardized size, responsive below */
+    font-weight: 600;
+    /* color is themed (e.g., var(--accent) or var(--text-headings)) */
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr; /* Image column, text column */
+    gap: 2.5rem;
+    align-items: center;
+}
+
+.about-text h2 {
+    /* Sub-heading within a section */
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    /* color is themed */
+}
+
+.about-text p {
+    font-size: 1rem;
+    line-height: 1.7; /* Improved readability for paragraphs */
+    margin-bottom: 1rem;
+    /* color is themed */
+}
+
+.about-image {
+    text-align: center;
+}
+
+.profile-img {
+    width: 200px; /* Matches placeholder */
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block; /* To enable margin auto centering if needed */
+    margin: 0 auto;
+    /* border, box-shadow are themed */
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem; /* After title */
+}
+
+.skill-category {
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    /* background, border are themed */
+}
+
+.skill-category h3 {
+    /* Title within a skill card */
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    /* color is themed */
+}
+
+.skill-list {
+    list-style: none;
+    padding: 0;
+}
+
+.skill-list li {
+    margin: 0.5rem 0;
+    padding: 0.7rem 1rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    /* background, color, border, box-shadow are themed */
+}
+
+.timeline {
+    position: relative;
+    padding-left: 25px; /* Space for the line and dots */
+    margin: 2rem auto; /* Center timeline if it's not full width */
+    max-width: 800px; /* Constrain width for better readability */
+}
+
+.timeline::before {
+    /* The vertical line */
+    content: "";
+    position: absolute;
+    left: 10px; /* Position of the line from the left */
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    /* background is themed */
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+    padding: 1.5rem; /* Padding inside the item */
+    padding-left: 25px; /* Extra padding to align content with dot */
+    border-radius: 10px;
+    /* background, border, box-shadow are themed */
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-item::before {
+    /* The dot on the line */
+    content: "";
+    position: absolute;
+    left: -6px; /* (timeline padding-left - dot-width/2) -> (10px - 12px/2) - 10px for left offset of parent = -6px */
+    top: 1.8rem; /* Vertically align dot; adjust as needed */
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    z-index: 1; /* Dot above the line */
+    /* background, border are themed */
+}
+
+.timeline-date {
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+    font-size: 0.85rem;
+    display: block; /* Ensure it takes its own line if needed */
+    /* color is themed */
+}
+
+.timeline-title {
+    font-size: 1.25rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    /* color is themed */
+}
+
+.timeline-company {
+    font-style: italic;
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+    /* color is themed */
+}
+
+.timeline-item-list {
+    margin-top: 0.5rem;
+    padding-left: 1.2rem; /* Indent list items */
+    list-style-type: disc; /* Or circle, or none */
+    font-size: 0.9rem;
+    /* color is themed */
+}
+
+.timeline-item-list li {
+    margin-bottom: 0.3rem;
+}
+
+.projects-grid,
+.opensource-grid,
+.education-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(300px, 1fr)
+    ); /* Common grid for card-like items */
+    gap: 1.5rem;
+    margin-top: 1rem; /* After title */
+}
+
+.project-card, /* Also applies to .opensource-item, .education-item if structurally similar */
+.opensource-item,
+.education-item {
+    border-radius: 10px;
+    overflow: hidden; /* If using images that might overflow */
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+    display: flex; /* For vertical content alignment if needed */
+    flex-direction: column; /* Stack content vertically */
+    /* background, border, box-shadow are themed */
+}
+
+.project-card:hover,
+.opensource-item:hover,
+.education-item:hover {
+    transform: translateY(-4px);
+    /* box-shadow is themed for hover */
+}
+
+.project-image {
+    height: 180px; /* Standard height for project images/placeholders */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem; /* For text in placeholder */
+    /* background, color are themed */
+}
+
+.project-content, /* Common class for padding in cards */
+.opensource-content,
+.education-content {
+    /* Create this class if not existing */
+    padding: 1.25rem;
+    flex-grow: 1; /* Allows content to fill space, pushing links to bottom */
+    display: flex;
+    flex-direction: column;
+}
+
+.project-title, /* Shared by .opensource-item-title, .education-item-title */
+.opensource-item-title,
+.education-item-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem; /* Reduced margin */
+    font-weight: 600;
+    /* color is themed */
+}
+
+.project-description,
+.opensource-item-description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    flex-grow: 1; /* Pushes tags/links down */
+    /* color is themed */
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1rem; /* Space before links */
+}
+
+.tag {
+    padding: 0.25rem 0.6rem;
+    border-radius: 15px; /* Pill-like tags */
+    font-size: 0.75rem;
+    font-weight: 500;
+    /* background, color are themed */
+}
+
+.project-links {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: auto; /* Pushes links to the bottom of the card content */
+}
+
+.project-link {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+    /* color is themed */
+}
+/* .project-link:hover is themed */
+
+.education-item-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+    font-style: italic;
+    /* color is themed */
+}
+
+.education-item-date {
+    font-size: 0.85rem;
+    margin-top: auto; /* Push date to bottom if card content varies */
+    padding-top: 0.5rem; /* Space above date */
+    /* color is themed */
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr; /* Info column, form column */
+    gap: 2.5rem;
+    align-items: flex-start; /* Align items to the top of the grid cells */
+}
+
+.contact-info h3 {
+    /* Sub-heading for contact info */
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    /* color is themed */
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    /* background is themed */
+}
+
+.contact-item i {
+    /* If using icons */
+    margin-right: 0.8rem;
+    font-size: 1.2rem;
+    width: 20px; /* Fixed width for icon alignment */
+    text-align: center;
+    color: var(--accent); /* Icons usually take accent color */
+}
+
+.contact-item strong {
+    margin-right: 0.5rem;
+    font-weight: 500;
+    /* color is themed */
+}
+
+.contact-form {
+    padding: 2rem; /* More padding for form card */
+    border-radius: 10px;
+    /* background, box-shadow, border are themed */
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    /* color is themed */
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+    border-width: 1px; /* Standardized border width */
+    border-style: solid;
+    /* background, color, border-color are themed */
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    /* border-color, box-shadow are themed for focus */
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px; /* Standard min-height */
+}
+
+.alert {
+    padding: 0.9rem;
+    border-radius: 6px;
+    margin-bottom: 1.25rem;
+    font-size: 0.9rem;
+    border-width: 1px;
+    border-style: solid;
+    /* text color, background-color, border-color are themed */
+}
+
+.visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+.error-container {
+    text-align: center;
+    padding: 2rem 1rem; /* Padding for error content */
+    max-width: 500px;
+    margin: auto; /* Center in the viewport */
+}
+
+.error-container h1 {
+    /* Error code, e.g., 404 */
+    font-size: 5rem; /* Large error code */
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    /* color is themed (e.g. var(--error-text) or var(--accent)) */
+}
+
+.error-title {
+    /* Message like "Page Not Found" */
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    /* color is themed */
+}
+
+.error-container p {
+    /* Descriptive text */
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    /* color is themed */
+}
+
+.error-main {
+    /* Wrapper for error section if needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(
+        100vh - 70px - 50px
+    ); /* Full viewport minus header/footer */
+}
+
+.error-button-container {
+    margin-top: 1.5rem;
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem 0; /* Standard footer padding */
+    /* margin-top: auto; /* Pushes to bottom if main content is short */
+    /* background, color are themed */
+}
+
+footer .container p {
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+footer a {
+    text-decoration: none;
+    font-weight: 500;
+    /* color is themed */
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.htmx-indicator {
+    opacity: 0;
+    transition: opacity 150ms ease-in;
+    position: fixed;
+    top: 20px; /* Position at top */
+    right: 20px; /* Position at right */
+    z-index: 2000; /* High z-index */
+    /* background, padding, border-radius for a small indicator box can be added */
+}
+
+.htmx-request .htmx-indicator,
+.htmx-request.htmx-indicator {
+    opacity: 1;
+}
+
+.loading-spinner {
+    /* Used inside .htmx-indicator or standalone */
+    border-radius: 50%;
+    width: 24px; /* Smaller spinner */
+    height: 24px;
+    animation: spin 0.8s linear infinite;
+    border-width: 3px;
+    border-style: solid;
+    /* border-color (track) and border-top-color (thumb) are themed */
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* === Responsive Design === */
+
+@media (max-width: 992px) {
+    /* Medium devices (tablets) */
+    .about-grid,
+    .contact-grid {
+        grid-template-columns: 1fr; /* Stack columns */
+        gap: 2rem;
+    }
+    .about-image {
+        margin-bottom: 2rem; /* Space when stacked */
+    }
+    .profile-img {
+        width: 180px;
+        height: 180px;
+    }
+    .contact-form {
+        margin-top: 2rem; /* Space when stacked */
+    }
+}
+
+@media (max-width: 768px) {
+    /* Small devices (tablets, large phones) */
+    article h1,
+    aside h1,
+    nav h1,
+    section h1 {
+        font-size: 2rem;
+    }
+    .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+    .hero .subtitle {
+        font-size: 1.1rem;
+    }
+
+    main {
+        margin-top: 60px; /* Adjust if header padding changes */
+    }
+
+    .hamburger {
+        display: flex !important;
+    }
+
+    .nav-right {
+        gap: 0.5rem;
+    }
+
+    .nav-links {
+        position: fixed !important;
+        top: 60px; /* Match new header height if changed */
+        left: 0;
+        right: 0;
+        width: 100vw;
+        height: calc(100vh - 60px);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1rem; /* Reduced gap for mobile nav items */
+        padding-top: 2rem;
+        z-index: 999; /* Below header's z-index for hamburger to be clickable */
+        transform: translateX(-100%);
+        transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1); /* Smoother transition */
+        display: flex !important;
+        /* background, box-shadow are themed in light/dark.css */
+    }
+
+    .nav-links.active {
+        transform: translateX(0) !important;
+    }
+
+    .nav-links li {
+        width: 85%;
+        text-align: center;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 0.8rem 1rem; /* Adjusted padding */
+        font-size: 1.1rem;
+        border-radius: 8px;
+        width: 100%;
+        border-bottom-style: none; /* Remove underline style for mobile buttons */
+    }
+    /* .nav-links a:hover, .nav-links a.active background is themed */
+
+    .projects-grid,
+    .opensource-grid,
+    .education-grid,
+    .skills-grid {
+        grid-template-columns: 1fr; /* Single column for all grids */
+    }
+
+    .timeline {
+        padding-left: 20px;
+    }
+    .timeline-item::before {
+        left: -6px; /* Recalculate based on new .timeline padding-left (20px - 12px/2 - 10px parent offset) */
+    }
+
+    .content-card {
+        padding: 1.5rem;
+    }
+
+    .error-container h1 {
+        font-size: 4rem;
+    }
+    .error-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 1rem;
+    }
+
+    article h1, aside h1, nav h1, section h1 {
+        font-size: 1.5rem;
+        line-height: 1.3;
+    }
+    .section-title {
+        font-size: 1.25rem;
+    }
+    .section {
+        padding: 2rem 0;
+    }
+
+    .hero h1 {
+        font-size: 1.75rem;
+    }
+    .hero .subtitle {
+        font-size: 0.9rem;
+    }
+    .hero p {
+        font-size: 0.9rem;
+    }
+    .cta-button {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .about-text h2 {
+        font-size: 1.25rem;
+    }
+    .about-text p {
+        font-size: 0.9rem;
+    }
+    .profile-img, .about-profile-placeholder {
+        width: 120px;
+        height: 120px;
+        font-size: 2rem;
+    }
+
+    .skill-category h3 {
+        font-size: 1rem;
+    }
+    .skill-list li {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    .timeline-title {
+        font-size: 1.1rem;
+    }
+    .timeline-company, .timeline-item-list {
+        font-size: 0.85rem;
+    }
+
+    .project-title, .opensource-item-title, .education-item-title {
+        font-size: 1.1rem;
+        line-height: 1.3;
+    }
+    .project-description, .opensource-item-description {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+    .tag {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    .contact-info h3 {
+        font-size: 1.1rem;
+    }
+    .contact-item, .form-group input, .form-group textarea {
+        font-size: 0.9rem;
+        padding: 0.75rem;
+    }
+    .form-group label {
+        font-size: 0.85rem;
+    }
+
+    .alert {
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .content-card {
+        padding: 1.25rem;
+    }
+    .hamburger span {
+        height: 2px;
+        margin: 3px 0;
+    }
+    .theme-toggle-btn {
+        padding: 0.4rem;
+    }
+    
+    .nav-right {
+        gap: 0.5rem;
+    }
+    .nav-links {
+        padding-top: 1.5rem;
+    }
+    .nav-links a {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .error-container h1 {
+        font-size: 3rem;
+    }
+    .error-title {
+        font-size: 1.25rem;
+    }
+    .error-container p {
+        font-size: 0.9rem;
+    }
+
+    footer .container p {
+        font-size: 0.85rem;
+    }
+}
