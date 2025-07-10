@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a professional portfolio website built with Rust, Rocket web framework, and Maud templating. It demonstrates modern web development with server-side rendering and progressive enhancement using htmx.
+This is a professional portfolio website built with Rust, Axum web framework, and Maud templating. It demonstrates modern web development with server-side rendering and progressive enhancement using htmx.
 
 ## Development Commands
 
@@ -34,8 +34,12 @@ cargo run --release
 ## Architecture
 
 ### Core Dependencies
-- **Rocket 0.5.1**: Web framework with JSON support
-- **Maud 0.26.0**: Type-safe HTML templating with Rocket integration
+- **Axum 0.8**: Modern async web framework built on Tokio and Hyper
+- **axum-htmx 0.8**: HTMX extractors and middleware with auto-vary feature
+- **Tokio 1.0**: Async runtime with full features
+- **Tower 0.4**: Middleware and service abstractions
+- **Tower-HTTP 0.5**: HTTP-specific middleware (static files, headers)
+- **Maud 0.26.0**: Type-safe HTML templating
 - **Chrono 0.4.38**: Date/time handling with serde support
 
 ### Application Structure
@@ -49,24 +53,25 @@ cargo run --release
   - `error_view.rs`: Error pages (404, 500)
 
 ### Key Features
-- **htmx Integration**: Progressive enhancement with `HtmxRequest` struct for detecting htmx requests
+- **htmx Integration**: Progressive enhancement using axum-htmx extractors (HxRequest)
+- **Auto-Vary Headers**: Automatic Vary header management for proper htmx caching
 - **Dual Rendering**: Full page rendering for direct access, partial content for htmx requests
-- **Form Handling**: Contact form with server-side validation
-- **Static Assets**: Served from `/static` with cache headers via `StaticAssetCacheFairing`
+- **Form Handling**: Contact form with server-side validation using Axum Form extractor
+- **Static Assets**: Served from `/static` with cache headers via Tower-HTTP middleware
 - **JSON-LD**: Structured data from `static/data/` files
-- **Security**: Rocket Shield middleware with CSP headers
-- **Error Handling**: Custom 404 and 500 error pages
+- **Error Handling**: Custom 404 fallback handler
+- **Async/Await**: Full async support throughout the application
 
 ### Route Pattern
 Each route handler follows this pattern:
 ```rust
-fn handler(htmx: HtmxRequest) -> Result<Markup, Status> {
-    if htmx.0 {
+async fn handler(HxRequest(is_htmx): HxRequest) -> impl IntoResponse {
+    if is_htmx {
         // Return only content for htmx requests
-        Ok(views::module::render())
+        into_html_response(views::module::render())
     } else {
         // Return full page for direct access
-        Ok(views::layout::render_page_with_content("section", content))
+        into_html_response(views::layout::render_page_with_content("section", content))
     }
 }
 ```
@@ -81,9 +86,9 @@ fn handler(htmx: HtmxRequest) -> Result<Markup, Status> {
 ### Adding New Sections
 1. Create new view module in `src/views/`
 2. Add module declaration to `src/views/mod.rs`
-3. Create route handler in `main.rs` following the htmx pattern
+3. Create async route handler in `main.rs` following the htmx pattern
 4. Add navigation link in `layout.rs`
-5. Mount route in the rocket configuration
+5. Add route to the Router in main function
 
 ### Customization
 - Update personal information in view templates
@@ -91,8 +96,22 @@ fn handler(htmx: HtmxRequest) -> Result<Markup, Status> {
 - Adjust styling in CSS files
 - The application uses Spanish language by default
 
+### Technical Details
+- **HTMX Detection**: Uses axum-htmx HxRequest extractor for type-safe header detection
+- **Auto-Vary Middleware**: AutoVaryLayer automatically adds Vary headers for proper caching
+- **Response Type**: All handlers return `impl IntoResponse` for flexibility
+- **Form Handling**: Uses Axum's Form extractor with serde Deserialize
+- **Static Files**: Tower-HTTP ServeDir with cache control headers
+- **Error Handling**: Fallback handler for 404 errors
+
+### Middleware Stack
+The application uses the following middleware layers:
+```rust
+.layer(AutoVaryLayer)  // Automatic Vary headers for htmx caching
+```
+
 ### Security Considerations
-- CSP headers configured in layout templates
-- Rocket Shield middleware for security headers
-- Static asset cache headers for performance
 - Input validation on contact form
+- Static asset cache headers for performance
+- Automatic Vary header management prevents caching issues with htmx
+- Type-safe htmx header extraction

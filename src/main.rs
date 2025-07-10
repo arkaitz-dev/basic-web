@@ -1,23 +1,38 @@
-#[macro_use]
-extern crate rocket;
-
+use axum::{
+    extract::Form,
+    http::{HeaderValue, header::{CACHE_CONTROL, CONTENT_TYPE}},
+    response::{Html, IntoResponse},
+    routing::{get, post},
+    Router,
+};
+use axum_htmx::{HxRequest, AutoVaryLayer};
 use maud::Markup;
-use rocket::fs::FileServer;
-use rocket::http::{Header, Status};
-use rocket::request::{FromRequest, Outcome};
-use rocket::{form::Form, Config, Request, Response};
-use rocket::fairing::{Fairing, Info, Kind};
+use serde::Deserialize;
 use std::fs;
+use tower::ServiceBuilder;
+use tower_http::{
+    services::ServeDir,
+    set_header::SetResponseHeaderLayer,
+};
 
 mod views;
 
 // Helper function to read JSON-LD files
 fn read_json_ld_file(filename: &str) -> String {
-    let path = format!("static/data/{}", filename);
-    fs::read_to_string(&path).unwrap_or_else(|_| {
-        eprintln!("Warning: Could not read JSON-LD file: {}", path);
-        "{}".to_string()
-    })
+    // Try multiple possible paths for JSON-LD files
+    let possible_paths = [
+        format!("static/data/{}", filename),  // Local development
+        format!("/static/data/{}", filename), // Docker container
+        format!("./static/data/{}", filename), // Alternative local
+    ];
+    
+    for path in &possible_paths {
+        if let Ok(content) = fs::read_to_string(path) {
+            return content;
+        }
+    }
+    
+    "{}".to_string()
 }
 
 // Public function to get structured data
@@ -29,104 +44,95 @@ pub fn get_person_json_ld() -> String {
     read_json_ld_file("person.json")
 }
 
-struct HtmxRequest(bool);
+// Helper function to convert Maud Markup to Html response
+fn into_html_response(markup: Markup) -> Html<String> {
+    Html(markup.into_string())
+}
 
-#[rocket::async_trait]
-impl<'r> FromRequest<'r> for HtmxRequest {
-    type Error = ();
-
-    async fn from_request(req: &'r Request<'_>) -> Outcome<Self, Self::Error> {
-        let is_htmx = req.headers().get_one("HX-Request").is_some();
-        Outcome::Success(HtmxRequest(is_htmx))
+async fn home_handler(HxRequest(is_htmx): HxRequest) -> impl IntoResponse {
+    if is_htmx {
+        into_html_response(views::home_view::render())
+    } else {
+        into_html_response(views::layout::render_page_with_content(
+            "home",
+            views::home_view::render(),
+        ))
     }
 }
 
-#[get("/")]
-fn home_handler(htmx: HtmxRequest) -> Result<Markup, Status> {
-    if htmx.0 {
-        Ok(views::layout::render_home_content())
+async fn about_handler(HxRequest(is_htmx): HxRequest) -> impl IntoResponse {
+    if is_htmx {
+        into_html_response(views::about_view::render())
     } else {
-        Ok(views::layout::render_page("home"))
-    }
-}
-
-#[get("/about")]
-fn about_handler(htmx: HtmxRequest) -> Result<Markup, Status> {
-    if htmx.0 {
-        Ok(views::about_view::render())
-    } else {
-        Ok(views::layout::render_page_with_content(
+        into_html_response(views::layout::render_page_with_content(
             "about",
             views::about_view::render(),
         ))
     }
 }
 
-#[get("/experience")]
-fn experience_handler(htmx: HtmxRequest) -> Result<Markup, Status> {
-    if htmx.0 {
-        Ok(views::experience_view::render())
+async fn experience_handler(HxRequest(is_htmx): HxRequest) -> impl IntoResponse {
+    if is_htmx {
+        into_html_response(views::experience_view::render())
     } else {
-        Ok(views::layout::render_page_with_content(
+        into_html_response(views::layout::render_page_with_content(
             "experience",
             views::experience_view::render(),
         ))
     }
 }
 
-#[get("/projects")]
-fn projects_handler(htmx: HtmxRequest) -> Result<Markup, Status> {
-    if htmx.0 {
-        Ok(views::projects_view::render())
+async fn projects_handler(HxRequest(is_htmx): HxRequest) -> impl IntoResponse {
+    if is_htmx {
+        into_html_response(views::projects_view::render())
     } else {
-        Ok(views::layout::render_page_with_content(
+        into_html_response(views::layout::render_page_with_content(
             "projects",
             views::projects_view::render(),
         ))
     }
 }
 
-#[get("/contact")]
-fn contact_handler(htmx: HtmxRequest) -> Result<Markup, Status> {
-    if htmx.0 {
-        Ok(views::contact_view::render())
+async fn contact_handler(HxRequest(is_htmx): HxRequest) -> impl IntoResponse {
+    if is_htmx {
+        into_html_response(views::contact_view::render())
     } else {
-        Ok(views::layout::render_page_with_content(
+        into_html_response(views::layout::render_page_with_content(
             "contact",
             views::contact_view::render(),
         ))
     }
 }
 
-#[derive(FromForm)]
+#[derive(Deserialize)]
 struct ContactForm {
     name: String,
     email: String,
     message: String,
 }
 
-#[get("/api/json-ld/website")]
-fn json_ld_website() -> (rocket::http::ContentType, String) {
-    (rocket::http::ContentType::JSON, get_website_json_ld())
+async fn json_ld_website() -> impl IntoResponse {
+    ([(CONTENT_TYPE, "application/json")], get_website_json_ld())
 }
 
-#[get("/api/json-ld/person")]
-fn json_ld_person() -> (rocket::http::ContentType, String) {
-    (rocket::http::ContentType::JSON, get_person_json_ld())
+async fn json_ld_person() -> impl IntoResponse {
+    ([(CONTENT_TYPE, "application/json")], get_person_json_ld())
 }
 
-#[post("/contact", data = "<form>")]
-fn contact_post_handler(form: Form<ContactForm>, htmx: HtmxRequest) -> Result<Markup, Status> {
+async fn contact_post_handler(
+    HxRequest(is_htmx): HxRequest,
+    Form(form): Form<ContactForm>
+) -> impl IntoResponse {
     let name = form.name.trim();
     let email = form.email.trim();
     let message = form.message.trim();
 
     if name.is_empty() || email.is_empty() || message.is_empty() {
         let error_content = views::contact_view::render_error("Todos los campos son obligatorios");
-        return if htmx.0 {
-            Ok(error_content)
+        return if is_htmx {
+            into_html_response(error_content)
         } else {
-            Ok(views::layout::render_page_with_content(
+            into_html_response(views::layout::render_page_with_content(
                 "contact",
                 error_content,
             ))
@@ -135,10 +141,10 @@ fn contact_post_handler(form: Form<ContactForm>, htmx: HtmxRequest) -> Result<Ma
 
     if !email.contains('@') {
         let error_content = views::contact_view::render_error("Por favor ingresa un email válido");
-        return if htmx.0 {
-            Ok(error_content)
+        return if is_htmx {
+            into_html_response(error_content)
         } else {
-            Ok(views::layout::render_page_with_content(
+            into_html_response(views::layout::render_page_with_content(
                 "contact",
                 error_content,
             ))
@@ -148,10 +154,10 @@ fn contact_post_handler(form: Form<ContactForm>, htmx: HtmxRequest) -> Result<Ma
     if message.len() < 10 {
         let error_content =
             views::contact_view::render_error("El mensaje debe tener al menos 10 caracteres");
-        return if htmx.0 {
-            Ok(error_content)
+        return if is_htmx {
+            into_html_response(error_content)
         } else {
-            Ok(views::layout::render_page_with_content(
+            into_html_response(views::layout::render_page_with_content(
                 "contact",
                 error_content,
             ))
@@ -159,74 +165,54 @@ fn contact_post_handler(form: Form<ContactForm>, htmx: HtmxRequest) -> Result<Ma
     }
 
     let success_content = views::contact_view::render_success(&name);
-    Ok(if htmx.0 {
-        success_content
+    if is_htmx {
+        into_html_response(success_content)
     } else {
-        views::layout::render_page_with_content("contact", success_content)
-    })
-}
-
-#[catch(404)]
-fn not_found() -> Markup {
-    views::error_view::not_found()
-}
-
-#[catch(500)]
-fn internal_error() -> Markup {
-    views::error_view::internal_error()
-}
-
-// Fairing for Cache-Control headers on static assets
-pub struct StaticAssetCacheFairing;
-
-#[rocket::async_trait]
-impl Fairing for StaticAssetCacheFairing {
-    fn info(&self) -> Info {
-        Info {
-            name: "Static Asset Cache Headers",
-            kind: Kind::Response,
-        }
-    }
-
-    async fn on_response<'r>(&self, request: &'r Request<'_>, response: &mut Response<'r>) {
-        if request.uri().path().starts_with("/static") {
-            response.set_header(Header::new(
-                "Cache-Control",
-                "public, max-age=31536000, immutable",
-            ));
-        }
+        into_html_response(views::layout::render_page_with_content("contact", success_content))
     }
 }
 
-#[launch]
-fn rocket() -> _ {
-    use rocket::shield::{Permission, Shield};
+async fn not_found() -> impl IntoResponse {
+    into_html_response(views::error_view::not_found())
+}
 
-    let figment = Config::figment()
-        .merge(("address", "127.0.0.1"))
-        .merge(("port", 3000));
 
-    // Create Shield without the deprecated interest-cohort policy
-    // Shield::default() already handles disabling interest-cohort.
-    // We will add CSP to the default configuration.
-    let shield = Shield::default().disable::<Permission>();
+#[tokio::main]
+async fn main() {
+    // Create static file service with cache headers
+    let static_service = ServiceBuilder::new()
+        .layer(SetResponseHeaderLayer::overriding(
+            CACHE_CONTROL,
+            HeaderValue::from_static("public, max-age=31536000, immutable"),
+        ))
+        .service(ServeDir::new("static"));
 
-    rocket::custom(figment)
-        .attach(shield)
-        .attach(StaticAssetCacheFairing) // Add cache headers for static files
-        .mount("/static", FileServer::from("static")) // Serve static files
-        .mount(
-            "/",
-            routes![
-                home_handler,
-                about_handler,
-                experience_handler,
-                projects_handler,
-                contact_handler,
-                contact_post_handler,
-                json_ld_website,
-                json_ld_person
-            ],
-        )
-        .register("/", catchers![not_found, internal_error])
+    // Build our application with routes
+    let app = Router::new()
+        .route("/", get(home_handler))
+        .route("/about", get(about_handler))
+        .route("/experience", get(experience_handler))
+        .route("/projects", get(projects_handler))
+        .route("/contact", get(contact_handler))
+        .route("/contact", post(contact_post_handler))
+        .route("/api/json-ld/website", get(json_ld_website))
+        .route("/api/json-ld/person", get(json_ld_person))
+        .nest_service("/static", static_service)
+        .layer(AutoVaryLayer)
+        .fallback(not_found);
+
+    // Configure bind address based on build mode
+    let bind_addr = if cfg!(debug_assertions) {
+        "127.0.0.1:3000"  // Development: localhost only
+    } else {
+        "0.0.0.0:3000"    // Production: all interfaces
+    };
+    
+    // Run the server
+    let listener = tokio::net::TcpListener::bind(bind_addr)
+        .await
+        .unwrap();
+    
+    println!("Server running on http://{}", bind_addr);
+    axum::serve(listener, app).await.unwrap();
 }

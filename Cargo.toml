@@ -3,7 +3,19 @@ name = "prueba"
 version = "0.1.0"
 edition = "2021"
 
+
 [dependencies]
-rocket = { version = "0.5.1", features = ["json"] }
-maud = { version = "0.26.0", features = ["rocket"] }
+axum = { version = "0.8", features = ["macros", "form"] }
+axum-htmx = { version = "0.8", features = ["auto-vary"] }
+tokio = { version = "1.0", features = ["full"] }
+tower = "0.4"
+tower-http = { version = "0.5", features = ["fs", "set-header"] }
+maud = "0.26.0"
 chrono = { version = "0.4.38", features = ["serde"] }
+serde = { version = "1.0", features = ["derive"] }
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true

@@ -1,4 +1,5 @@
 pub mod layout;
+pub mod home_view;
 pub mod about_view;
 pub mod experience_view;
 pub mod projects_view;
