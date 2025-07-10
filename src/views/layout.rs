@@ -1,5 +1,5 @@
 use maud::{html, Markup, DOCTYPE};
-use crate::{get_website_json_ld, get_person_json_ld};
+use crate::{get_website_json_ld, get_person_json_ld, routes::Route};
 
 
 pub fn render_page_with_content(current_section: &str, content: Markup) -> Markup {
@@ -47,8 +47,8 @@ pub fn render_page_with_content(current_section: &str, content: Markup) -> Marku
                 header {
                     nav class="container" {
                         a class="logo"
-                            href="/"
-                            hx-get="/"
+                            href=(Route::Home.path())
+                            hx-get=(Route::Home.path())
                             hx-target="main"
                             hx-push-url="true"
                         { "Tu Nombre" }
@@ -56,32 +56,32 @@ pub fn render_page_with_content(current_section: &str, content: Markup) -> Marku
                         div class="nav-right" {
                             ul class="nav-links" id="nav-links" {
                             li {
-                                a href="/about"
-                                  hx-get="/about"
+                                a href=(Route::About.path())
+                                  hx-get=(Route::About.path())
                                   hx-target="main"
                                   hx-push-url="true"
                                   class={ @if current_section == "about" { "active nav-link" } @else { "nav-link" } }
                                 { "Sobre Mí" }
                             }
                             li {
-                                a href="/experience"
-                                  hx-get="/experience"
+                                a href=(Route::Experience.path())
+                                  hx-get=(Route::Experience.path())
                                   hx-target="main"
                                   hx-push-url="true"
                                   class={ @if current_section == "experience" { "active nav-link" } @else { "nav-link" } }
                                 { "Experiencia" }
                             }
                             li {
-                                a href="/projects"
-                                  hx-get="/projects"
+                                a href=(Route::Projects.path())
+                                  hx-get=(Route::Projects.path())
                                   hx-target="main"
                                   hx-push-url="true"
                                   class={ @if current_section == "projects" { "active nav-link" } @else { "nav-link" } }
                                 { "Proyectos" }
                             }
                             li {
-                                a href="/contact"
-                                  hx-get="/contact"
+                                a href=(Route::Contact.path())
+                                  hx-get=(Route::Contact.path())
                                   hx-target="main"
                                   hx-push-url="true"
                                   class={ @if current_section == "contact" { "active nav-link" } @else { "nav-link" } }

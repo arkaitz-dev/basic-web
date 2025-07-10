@@ -1,4 +1,5 @@
 use maud::{html, Markup};
+use crate::routes::Route;
 
 pub fn render() -> Markup {
     html! {
@@ -12,8 +13,8 @@ pub fn render() -> Markup {
                         "tecnologías como Rust, JavaScript, React, y Node.js. "
                         "Apasionado por el código limpio y las mejores prácticas de desarrollo."
                     }
-                    a href="/contact"
-                      hx-get="/contact"
+                    a href=(Route::Contact.path())
+                      hx-get=(Route::Contact.path())
                       hx-target="main"
                       hx-push-url="true"
                       class="cta-button"

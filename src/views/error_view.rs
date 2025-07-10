@@ -1,4 +1,5 @@
 use maud::{html, Markup, DOCTYPE};
+use crate::routes::Route;
 
 pub fn not_found() -> Markup {
     html! {
@@ -23,7 +24,7 @@ pub fn not_found() -> Markup {
                                 h2 class="error-title" { "Página no encontrada" }
                                 p { "Lo sentimos, la página que buscas no existe o ha sido movida." }
                                 div class="error-button-container" {
-                                    a href="/" class="cta-button" { "← Volver al inicio" }
+                                    a href=(Route::Home.path()) class="cta-button" { "← Volver al inicio" }
                                 }
                                 div class="error-icon-container" { "🔍" }
                             }

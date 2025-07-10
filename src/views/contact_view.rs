@@ -1,4 +1,5 @@
 use maud::{html, Markup};
+use crate::routes::Route;
 
 pub fn render() -> Markup {
     html! {
@@ -56,7 +57,7 @@ pub fn render() -> Markup {
                                 // Response will be loaded here
                             }
                             
-                            form hx-post="/contact" hx-target="#contact-response" hx-swap="innerHTML" {
+                            form hx-post=(Route::Contact.path()) hx-target="#contact-response" hx-swap="innerHTML" {
                                 div class="form-group" {
                                     label for="name" { "Nombre *" }
                                     input type="text" id="name" name="name" required="true" placeholder="Tu nombre completo" autocomplete="name";
@@ -122,7 +123,7 @@ pub fn render_success(name: &str) -> Markup {
         
         div class="alert-action-container" {
             p { "¿Quieres enviar otro mensaje?" }
-            button hx-get="/contact" hx-target="#contact-response" hx-swap="innerHTML" class="cta-button alert-button" {
+            button hx-get=(Route::Contact.path()) hx-target="#contact-response" hx-swap="innerHTML" class="cta-button alert-button" {
                 "Nuevo mensaje"
             }
         }
@@ -138,7 +139,7 @@ pub fn render_error(error_message: &str) -> Markup {
         
         div class="alert-action-container" {
             p { "Por favor, corrige el error e inténtalo de nuevo:" }
-            button hx-get="/contact" hx-target="#contact-response" hx-swap="innerHTML" class="cta-button alert-button" {
+            button hx-get=(Route::Contact.path()) hx-target="#contact-response" hx-swap="innerHTML" class="cta-button alert-button" {
                 "Reintentar"
             }
         }

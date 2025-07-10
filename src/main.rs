@@ -74,12 +74,12 @@ async fn main() {
 
     // Build our application with routes
     let app = Router::new()
-        .route(Route::Home.path(), get(controllers::home_handler))
-        .route("/about", get(controllers::about_handler))
-        .route("/experience", get(controllers::experience_handler))
-        .route("/projects", get(controllers::projects_handler))
-        .route("/contact", get(controllers::contact_handler))
-        .route("/contact", post(controllers::contact_submit))
+        .route(Route::Home.path(), get(controllers::home::handler))
+        .route(Route::About.path(), get(controllers::about::handler))
+        .route(Route::Experience.path(), get(controllers::experience::handler))
+        .route(Route::Projects.path(), get(controllers::projects::handler))
+        .route(Route::Contact.path(), get(controllers::contact::handler))
+        .route(Route::Contact.path(), post(controllers::contact::contact_submit))
         .route("/api/json-ld/website", get(json_ld_website))
         .route("/api/json-ld/person", get(json_ld_person))
         .nest_service("/static", static_service)
