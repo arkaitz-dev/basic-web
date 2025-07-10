@@ -14,6 +14,7 @@ use tower::ServiceBuilder;
 use tower_http::{services::ServeDir, set_header::SetResponseHeaderLayer};
 
 mod controllers;
+mod macros;
 mod routes;
 mod views;
 use routes::Route;

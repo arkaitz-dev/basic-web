@@ -1,8 +1,6 @@
+use crate::generate_page_handler;
 use crate::views;
-use axum::{
-    extract::Form,
-    response::{Html, IntoResponse},
-};
+use axum::{extract::Form, response::{Html, IntoResponse}};
 use axum_htmx::HxRequest;
 use maud::Markup;
 use serde::Deserialize;
@@ -18,16 +16,7 @@ fn into_html_response(markup: Markup) -> Html<String> {
     Html(markup.into_string())
 }
 
-pub async fn handler(HxRequest(is_htmx): HxRequest) -> impl IntoResponse {
-    if is_htmx {
-        into_html_response(views::contact_view::render())
-    } else {
-        into_html_response(views::layout::render_page_with_content(
-            "contact",
-            views::contact_view::render(),
-        ))
-    }
-}
+generate_page_handler!(handler, "contact", contact_view);
 
 pub async fn contact_submit(
     HxRequest(is_htmx): HxRequest,
