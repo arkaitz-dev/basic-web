@@ -11,14 +11,40 @@ pub fn render_page_with_content(current_section: &str, content: Markup) -> Marku
                 meta name="viewport" content="width=device-width, initial-scale=1.0";
                 title { "Tu Nombre - Desarrollador Full Stack" }
                 meta name="description" content="Portfolio profesional de desarrollador full stack especializado en Rust, JavaScript y tecnologías web modernas";
-
-                // Add this line
+                meta name="keywords" content="desarrollador full stack, rust, javascript, programación, portfolio, desarrollo web";
+                meta name="author" content="Tu Nombre";
                 meta name="robots" content="index, follow";
+                meta name="language" content="es";
+                meta name="revisit-after" content="7 days";
+                
+                // Open Graph tags
+                meta property="og:type" content="website";
+                meta property="og:title" content="Tu Nombre - Desarrollador Full Stack";
+                meta property="og:description" content="Portfolio profesional de desarrollador full stack especializado en Rust, JavaScript y tecnologías web modernas";
+                meta property="og:url" content="https://tudominio.com";
+                meta property="og:site_name" content="Tu Nombre Portfolio";
+                meta property="og:locale" content="es_ES";
+                
+                // Twitter Cards
+                meta name="twitter:card" content="summary_large_image";
+                meta name="twitter:title" content="Tu Nombre - Desarrollador Full Stack";
+                meta name="twitter:description" content="Portfolio profesional de desarrollador full stack especializado en Rust, JavaScript y tecnologías web modernas";
+                meta name="twitter:creator" content="@tuusuario";
+                
+                // Favicon and app icons
+                link rel="icon" type="image/x-icon" href="/static/favicon.ico";
+                link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png";
+                link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png";
+                link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png";
+                link rel="manifest" href="/static/site.webmanifest";
+                meta name="theme-color" content="#2563eb";
+                meta name="msapplication-TileColor" content="#2563eb";
+                
+                // Canonical URL
+                link rel="canonical" href="https://tudominio.com";
 
-                // CSP via meta tag
-                meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'sha256-bsV5JivYxvGywDAZ22EZJKBFip65Ng9xoJVLbBg7bdo='; object-src 'none'; base-uri 'self';";
-
-                // Security headers are handled by Rocket Shield middleware
+                // CSP via meta tag (security headers now via HTTP headers)
+                meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-xEK+LF/cTrqPmhixH47N6K6/qV34oVLqo9d+3A3wkHI='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'self'; frame-src 'none'; base-uri 'self'; form-action 'self'";
 
                 // Structured Data (JSON-LD)
                 script type="application/ld+json" {
@@ -28,20 +54,22 @@ pub fn render_page_with_content(current_section: &str, content: Markup) -> Marku
                     (maud::PreEscaped(&get_person_json_ld()))
                 }
 
-                // htmx
-                // Styles
-                // Preload stylesheets
+                // Preload critical resources (optimized to prevent unused warnings)
+                link rel="preload" href="/static/css/main.css" as="style";
                 link rel="preload" href="/static/css/light.css" as="style";
-                link rel="preload" href="/static/css/dark.css" as="style";
-
+                link rel="preload" href="/static/js/htmx.min.js" as="script";
+                link rel="dns-prefetch" href="//fonts.googleapis.com";
+                
+                // Stylesheets
                 link rel="stylesheet" href="/static/css/main.css";
                 link id="theme-stylesheet" rel="stylesheet" href="/static/css/light.css";
                 
-                // Theme initialization script
-                script src="/static/js/theme-init.js" {}
-
-                // htmx
+                // Theme initialization script (inline for performance with CSP hash)
+                script { "(function(){'use strict';try{if(typeof Storage==='undefined')return;const s=()=>window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';const t=localStorage.getItem('theme')||s();const v=['light','dark'].includes(t)?t:'light';const e=document.getElementById('theme-stylesheet');if(e)e.href='/static/css/'+v+'.css';document.documentElement.setAttribute('data-theme',v);const m=document.querySelector('meta[name=\"theme-color\"]');if(m)m.content=v==='dark'?'#1a1a1a':'#2563eb';if(!localStorage.getItem('theme'))localStorage.setItem('theme',v)}catch(e){console.error('Theme init error:',e)}})();" }
+                
+                // Scripts
                 script src="/static/js/htmx.min.js" defer {}
+                script src="/static/js/theme-init.js" defer {}
             }
             body hx-boost="true" {
                 header {

@@ -2,17 +2,71 @@
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Tu Nombre",
-  "url": "https://your-domain.com/",
+  "alternateName": "Tu Nickname",
+  "url": "https://tudominio.com/",
+  "image": "https://tudominio.com/static/profile-photo.jpg",
   "jobTitle": "Desarrollador Full Stack",
-  "knowsAbout": ["Rust", "JavaScript", "React", "Node.js", "Web Development", "Full Stack Development"],
+  "description": "Desarrollador full stack especializado en Rust, JavaScript y tecnologías web modernas con experiencia en desarrollo de aplicaciones web escalables",
+  "knowsAbout": [
+    "Rust Programming",
+    "JavaScript",
+    "TypeScript",
+    "React",
+    "Vue.js",
+    "Node.js",
+    "Axum",
+    "Web Development",
+    "Full Stack Development",
+    "Database Design",
+    "API Development",
+    "DevOps",
+    "Docker",
+    "Git"
+  ],
+  "hasCredential": [
+    {
+      "@type": "EducationalOccupationalCredential",
+      "name": "Ingeniería Informática",
+      "credentialCategory": "degree"
+    }
+  ],
+  "workLocation": {
+    "@type": "Place",
+    "name": "Remote/Madrid"
+  },
   "sameAs": [
     "https://linkedin.com/in/tu-perfil-aqui",
-    "https://github.com/tu-usuario-aqui"
+    "https://github.com/tu-usuario-aqui",
+    "https://twitter.com/tu-usuario"
   ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+34-XXX-XXX-XXX",
+    "contactType": "customer service",
+    "availableLanguage": ["Spanish", "English"]
+  },
   "email": "mailto:tu.email@ejemplo.com",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Madrid",
+    "addressRegion": "Madrid",
     "addressCountry": "ES"
+  },
+  "nationality": {
+    "@type": "Country",
+    "name": "Spain"
+  },
+  "birthPlace": {
+    "@type": "Place",
+    "name": "Madrid, Spain"
+  },
+  "alumniOf": {
+    "@type": "EducationalOrganization",
+    "name": "Universidad Complutense de Madrid",
+    "sameAs": "https://www.ucm.es/"
+  },
+  "seeks": {
+    "@type": "Demand",
+    "name": "Full Stack Developer Position"
   }
 }

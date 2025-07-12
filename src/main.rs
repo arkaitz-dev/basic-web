@@ -1,6 +1,6 @@
 use axum::{
     http::{
-        header::{CACHE_CONTROL, CONTENT_TYPE},
+        header::{CACHE_CONTROL, CONTENT_TYPE, HeaderName},
         HeaderValue,
     },
     response::{Html, IntoResponse},
@@ -59,6 +59,14 @@ async fn json_ld_person() -> impl IntoResponse {
     ([(CONTENT_TYPE, "application/json")], get_person_json_ld())
 }
 
+async fn serve_robots() -> impl IntoResponse {
+    ([(CONTENT_TYPE, "text/plain")], include_str!("../static/robots.txt"))
+}
+
+async fn serve_sitemap() -> impl IntoResponse {
+    ([(CONTENT_TYPE, "application/xml")], include_str!("../static/sitemap.xml"))
+}
+
 async fn not_found() -> impl IntoResponse {
     into_html_response(views::error_view::not_found())
 }
@@ -73,7 +81,7 @@ async fn main() {
         ))
         .service(ServeDir::new("static"));
 
-    // Build our application with routes
+    // Build our application with routes and security headers
     let app = Router::new()
         .route(Route::Home.path(), get(controllers::home::handler))
         .route(Route::About.path(), get(controllers::about::handler))
@@ -83,7 +91,32 @@ async fn main() {
         .route(Route::Contact.path(), post(controllers::contact::contact_submit))
         .route("/api/json-ld/website", get(json_ld_website))
         .route("/api/json-ld/person", get(json_ld_person))
+        .route("/robots.txt", get(serve_robots))
+        .route("/sitemap.xml", get(serve_sitemap))
         .nest_service("/static", static_service)
+        .layer(ServiceBuilder::new()
+            // Security headers
+            .layer(SetResponseHeaderLayer::overriding(
+                HeaderName::from_static("x-frame-options"),
+                HeaderValue::from_static("DENY"),
+            ))
+            .layer(SetResponseHeaderLayer::overriding(
+                HeaderName::from_static("x-content-type-options"),
+                HeaderValue::from_static("nosniff"),
+            ))
+            .layer(SetResponseHeaderLayer::overriding(
+                HeaderName::from_static("x-xss-protection"),
+                HeaderValue::from_static("1; mode=block"),
+            ))
+            .layer(SetResponseHeaderLayer::overriding(
+                HeaderName::from_static("referrer-policy"),
+                HeaderValue::from_static("strict-origin-when-cross-origin"),
+            ))
+            .layer(SetResponseHeaderLayer::overriding(
+                HeaderName::from_static("permissions-policy"),
+                HeaderValue::from_static("geolocation=(), microphone=(), camera=()"),
+            ))
+        )
         .layer(AutoVaryLayer)
         .fallback(not_found);
 

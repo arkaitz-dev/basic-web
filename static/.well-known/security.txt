@@ -1,0 +1,7 @@
+Contact: mailto:security@tudominio.com
+Contact: https://tudominio.com/contact
+Expires: 2025-12-31T23:59:59.000Z
+Encryption: https://tudominio.com/pgp-key.txt
+Preferred-Languages: es, en
+Canonical: https://tudominio.com/.well-known/security.txt
+Policy: https://tudominio.com/security-policy
