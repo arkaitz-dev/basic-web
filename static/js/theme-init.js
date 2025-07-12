@@ -18,7 +18,7 @@
         
         const themeStylesheet = document.getElementById("theme-stylesheet");
         if (themeStylesheet) {
-            themeStylesheet.setAttribute("href", validatedTheme === "dark" ? "/static/css/dark.css" : "/static/css/light.css");
+            themeStylesheet.setAttribute("href", validatedTheme === "dark" ? "/static/css/electric-eclipse/dark.css" : "/static/css/electric-eclipse/light.css");
         }
         
         // Set data attribute for CSS targeting

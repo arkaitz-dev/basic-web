@@ -28,8 +28,8 @@ const ThemeManager = {
     
     // Update stylesheet
     const newHref = theme === "dark" 
-      ? "/static/css/dark.css" 
-      : "/static/css/light.css";
+      ? "/static/css/electric-eclipse/dark.css" 
+      : "/static/css/electric-eclipse/light.css";
     
     themeStylesheet.setAttribute("href", newHref);
     

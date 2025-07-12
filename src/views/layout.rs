@@ -1,6 +1,5 @@
+use crate::{get_person_json_ld, get_website_json_ld, routes::Route};
 use maud::{html, Markup, DOCTYPE};
-use crate::{get_website_json_ld, get_person_json_ld, routes::Route};
-
 
 pub fn render_page_with_content(current_section: &str, content: Markup) -> Markup {
     html! {
@@ -16,7 +15,7 @@ pub fn render_page_with_content(current_section: &str, content: Markup) -> Marku
                 meta name="robots" content="index, follow";
                 meta name="language" content="es";
                 meta name="revisit-after" content="7 days";
-                
+
                 // Open Graph tags
                 meta property="og:type" content="website";
                 meta property="og:title" content="Tu Nombre - Desarrollador Full Stack";
@@ -24,13 +23,13 @@ pub fn render_page_with_content(current_section: &str, content: Markup) -> Marku
                 meta property="og:url" content="https://tudominio.com";
                 meta property="og:site_name" content="Tu Nombre Portfolio";
                 meta property="og:locale" content="es_ES";
-                
+
                 // Twitter Cards
                 meta name="twitter:card" content="summary_large_image";
                 meta name="twitter:title" content="Tu Nombre - Desarrollador Full Stack";
                 meta name="twitter:description" content="Portfolio profesional de desarrollador full stack especializado en Rust, JavaScript y tecnologías web modernas";
                 meta name="twitter:creator" content="@tuusuario";
-                
+
                 // Favicon and app icons
                 link rel="icon" type="image/x-icon" href="/static/favicon.ico";
                 link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png";
@@ -39,7 +38,7 @@ pub fn render_page_with_content(current_section: &str, content: Markup) -> Marku
                 link rel="manifest" href="/static/site.webmanifest";
                 meta name="theme-color" content="#2563eb";
                 meta name="msapplication-TileColor" content="#2563eb";
-                
+
                 // Canonical URL
                 link rel="canonical" href="https://tudominio.com";
 
@@ -55,18 +54,18 @@ pub fn render_page_with_content(current_section: &str, content: Markup) -> Marku
                 }
 
                 // Preload critical resources (optimized to prevent unused warnings)
-                link rel="preload" href="/static/css/main.css" as="style";
-                link rel="preload" href="/static/css/light.css" as="style";
+                link rel="preload" href="/static/css/electric-eclipse/main.css" as="style";
+                link rel="preload" href="/static/css/electric-eclipse/light.css" as="style";
                 link rel="preload" href="/static/js/htmx.min.js" as="script";
                 link rel="dns-prefetch" href="//fonts.googleapis.com";
-                
+
                 // Stylesheets
-                link rel="stylesheet" href="/static/css/main.css";
-                link id="theme-stylesheet" rel="stylesheet" href="/static/css/light.css";
-                
+                link rel="stylesheet" href="/static/css/electric-eclipse/main.css";
+                link id="theme-stylesheet" rel="stylesheet" href="/static/css/electric-eclipse/light.css";
+
                 // Theme initialization script (inline for performance with CSP hash)
-                script { "(function(){'use strict';try{if(typeof Storage==='undefined')return;const s=()=>window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';const t=localStorage.getItem('theme')||s();const v=['light','dark'].includes(t)?t:'light';const e=document.getElementById('theme-stylesheet');if(e)e.href='/static/css/'+v+'.css';document.documentElement.setAttribute('data-theme',v);const m=document.querySelector('meta[name=\"theme-color\"]');if(m)m.content=v==='dark'?'#1a1a1a':'#2563eb';if(!localStorage.getItem('theme'))localStorage.setItem('theme',v)}catch(e){console.error('Theme init error:',e)}})();" }
-                
+                script { "(function(){'use strict';try{if(typeof Storage==='undefined')return;const s=()=>window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';const t=localStorage.getItem('theme')||s();const v=['light','dark'].includes(t)?t:'light';const e=document.getElementById('theme-stylesheet');if(e)e.href='/static/css/electric-eclipse/'+v+'.css';document.documentElement.setAttribute('data-theme',v);const m=document.querySelector('meta[name=\"theme-color\"]');if(m)m.content=v==='dark'?'#1a1a1a':'#2563eb';if(!localStorage.getItem('theme'))localStorage.setItem('theme',v)}catch(e){console.error('Theme init error:',e)}})();" }
+
                 // Scripts
                 script src="/static/js/htmx.min.js" defer {}
                 script src="/static/js/theme-init.js" defer {}
@@ -159,4 +158,3 @@ pub fn render_page_with_content(current_section: &str, content: Markup) -> Marku
         }
     }
 }
-

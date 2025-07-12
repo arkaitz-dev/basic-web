@@ -13,7 +13,7 @@ pub fn not_found() -> Markup {
                 meta http-equiv="X-Frame-Options" content="DENY";
                 meta http-equiv="X-XSS-Protection" content="1; mode=block";
                 script src="https://unpkg.com/htmx.org@2.0.3" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous" {}
-                link rel="stylesheet" href="/static/css/main.css";
+                link rel="stylesheet" href="/static/css/electric-eclipse/main.css";
             }
             body {
                 main class="error-main" {

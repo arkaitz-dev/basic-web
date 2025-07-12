@@ -130,7 +130,7 @@ The Docker image uses a multi-stage build that:
 ### Customization
 
 1. **Personal information**: Edit templates in `src/views/`
-2. **Styles**: Modify CSS files in `static/css/`
+2. **Styles**: Modify CSS files in `static/css/electric-eclipse/`
 3. **Structured data**: Update JSON-LD files in `static/data/`
 4. **New sections**: See "Adding New Sections"
 

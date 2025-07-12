@@ -106,7 +106,7 @@ This automatically creates handlers that:
 4. Handle the response conversion
 
 ### Static Assets Organization
-- `static/css/`: Stylesheets (main.css, light.css, dark.css)
+- `static/css/electric-eclipse/`: Stylesheets (main.css, light.css, dark.css)
 - `static/js/`: JavaScript files (htmx.min.js, main.js, theme-init.js)
 - `static/data/`: JSON-LD structured data files
 
