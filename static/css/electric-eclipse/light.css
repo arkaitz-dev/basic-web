@@ -19,6 +19,16 @@
   --color-bg-header: rgba(248, 250, 252, 0.95); /* Translucent slate 50 */
   --color-bg-mobile-menu: rgba(248, 250, 252, 0.98);
   --color-bg-hover: #f1f5f9;        /* Slate 100 - subtle hover */
+  
+  /* Mobile Menu Gradient - Light Theme */
+  --mobile-menu-gradient: linear-gradient(
+    to bottom,
+    rgba(248, 250, 252, 0.98) 0%,
+    rgba(248, 250, 252, 0.92) 30%,
+    rgba(248, 250, 252, 0.85) 60%,
+    rgba(248, 250, 252, 0.75) 80%,
+    rgba(248, 250, 252, 0.5) 100%
+  );
   --color-bg-footer: #0f172a;       /* Dark slate for contrast */
   
   /* Text Colors - WCAG AAA Compliant (7:1+ contrast) */
