@@ -70,8 +70,8 @@
   --container-lg: 1024px;
   --container-xl: 1280px;
 
-  /* Header height */
-  --header-height: 4rem;
+  /* Header height - reduced by 15% */
+  --header-height: calc(4rem * 0.85); /* 3.4rem */
 
   /* Focus outline */
   --focus-outline-width: 3px;
@@ -296,11 +296,11 @@ nav {
   justify-content: center; /* Center content horizontally */
 }
 
-/* Active indicator without bullets - clean design */
+/* Active indicator - internal bottom design */
 .nav-link.active::after {
   content: '';
   position: absolute;
-  bottom: -2px;
+  bottom: 4px; /* Inside the nav-link, near the bottom */
   left: var(--space-4);
   right: var(--space-4);
   height: 3px;
@@ -1024,7 +1024,7 @@ footer a:hover {
 
 @media (max-width: 768px) {
   :root {
-    --header-height: 3.5rem;
+    --header-height: calc(3.5rem * 0.85); /* 2.975rem - reduced by 15% */
   }
   
   .container {
