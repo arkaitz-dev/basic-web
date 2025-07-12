@@ -3,12 +3,12 @@ use crate::routes::Route;
 
 pub fn render() -> Markup {
     html! {
-        section class="section" {
+        section class="hero" {
             div class="container" {
-                div class="content-card hero" {
-                    h1 { "Hola, soy Tu Nombre" }
-                    p class="subtitle" { "Desarrollador Full Stack" }
-                    p {
+                div class="hero-content" {
+                    h1 class="hero-title" { "Hola, soy Tu Nombre" }
+                    p class="hero-subtitle" { "Desarrollador Full Stack" }
+                    p class="hero-description" {
                         "Especializado en crear aplicaciones web modernas y eficientes utilizando "
                         "tecnologías como Rust, JavaScript, React, y Node.js. "
                         "Apasionado por el código limpio y las mejores prácticas de desarrollo."
@@ -17,7 +17,7 @@ pub fn render() -> Markup {
                       hx-get=(Route::Contact.path())
                       hx-target="main"
                       hx-push-url="true"
-                      class="cta-button"
+                      class="btn btn-primary"
                     { "Contactar" }
                 }
             }

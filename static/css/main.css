@@ -187,6 +187,7 @@ h6 {
 
 p {
   margin-bottom: var(--space-4);
+  display: block;
 }
 
 a {
@@ -442,18 +443,27 @@ nav {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  display: block;
+  line-height: var(--line-height-tight);
 }
 
 .hero-subtitle {
   font-size: var(--font-size-xl);
   color: var(--color-accent);
   margin-bottom: var(--space-3);
+  display: block;
+  font-weight: var(--font-weight-semibold);
 }
 
 .hero-description {
   font-size: var(--font-size-lg);
   color: var(--color-text-secondary);
   margin-bottom: var(--space-6);
+  display: block;
+  line-height: var(--line-height-base);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ==============================================
