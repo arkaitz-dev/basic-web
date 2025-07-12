@@ -133,7 +133,13 @@ const NavigationManager = {
     const toggleButton = document.getElementById("mobile-menu-toggle");
     const navLinks = document.getElementById("nav-links");
     
-    if (!toggleButton || !navLinks) return;
+    if (!toggleButton || !navLinks) {
+      console.log("Mobile menu elements not found:", {
+        toggleButton: !!toggleButton,
+        navLinks: !!navLinks
+      });
+      return;
+    }
 
     // Enhanced click handler with proper ARIA states
     toggleButton.addEventListener("click", (e) => {

@@ -1030,10 +1030,16 @@ footer a:hover {
     transform: translateX(0);
   }
   
+  .nav-links li {
+    width: 100%;
+  }
+  
   .nav-link {
+    display: block;
     width: 100%;
     text-align: center;
     padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-base);
   }
   
   .hero-title {
