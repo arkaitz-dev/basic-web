@@ -1,144 +1,144 @@
-# Portfolio Personal en Rust
+# Rust Portfolio Website
 
-Un portfolio web profesional y moderno construido con Rust, utilizando el framework Axum, templating Maud y mejora progresiva con htmx.
+A modern and professional web portfolio built with Rust, using the Axum framework, Maud templating, and progressive enhancement with htmx.
 
-## 🚀 Características
+## 🚀 Features
 
-- **Renderizado del lado del servidor (SSR)** con templates type-safe usando Maud
-- **Mejora progresiva** con htmx para navegación SPA sin JavaScript complejo
-- **Arquitectura moderna** con async/await, extractores de Axum y middleware de Tower
-- **Sistema de temas** con soporte para modo claro/oscuro
-- **Formulario de contacto** con validación del lado del servidor
-- **SEO optimizado** con datos estructurados JSON-LD
-- **Rendimiento optimizado** con caché agresivo y compilación con optimizaciones
-- **Containerización** con Docker usando imágenes mínimas (scratch)
-- **Código DRY** mediante sistema de macros para reducir repetición
+- **Server-side rendering (SSR)** with type-safe templates using Maud
+- **Progressive enhancement** with htmx for SPA-like navigation without complex JavaScript
+- **Modern architecture** with async/await, Axum extractors, and Tower middleware
+- **Theme system** with light/dark mode support
+- **Contact form** with server-side validation
+- **SEO optimized** with JSON-LD structured data
+- **Performance optimized** with aggressive caching and optimized compilation
+- **Containerization** with Docker using minimal images (scratch)
+- **DRY code** through macro system to reduce repetition
 
-## 🛠️ Stack Tecnológico
+## 🛠️ Tech Stack
 
 ### Backend
-- **[Rust](https://www.rust-lang.org/)** - Lenguaje de programación de sistemas
-- **[Axum 0.8](https://github.com/tokio-rs/axum)** - Framework web async moderno
-- **[Tokio](https://tokio.rs/)** - Runtime asíncrono
-- **[Maud](https://maud.lambda.xyz/)** - Templating HTML type-safe
-- **[Tower](https://github.com/tower-rs/tower)** - Middleware y abstracciones de servicios
+- **[Rust](https://www.rust-lang.org/)** - Systems programming language
+- **[Axum 0.8](https://github.com/tokio-rs/axum)** - Modern async web framework
+- **[Tokio](https://tokio.rs/)** - Asynchronous runtime
+- **[Maud](https://maud.lambda.xyz/)** - Type-safe HTML templating
+- **[Tower](https://github.com/tower-rs/tower)** - Middleware and service abstractions
 
 ### Frontend
-- **[htmx 2.0](https://htmx.org/)** - Interactividad sin complejidad
-- **CSS3** - Estilos modernos con variables CSS
-- **HTML5** - Estructura semántica
+- **[htmx 2.0](https://htmx.org/)** - Interactivity without complexity
+- **CSS3** - Modern styles with CSS variables
+- **HTML5** - Semantic structure
 
-## 📁 Estructura del Proyecto
+## 📁 Project Structure
 
 ```
 prueba/
 ├── src/
-│   ├── main.rs              # Punto de entrada y configuración del servidor
-│   ├── routes.rs            # Sistema centralizado de rutas
-│   ├── macros.rs            # Macros para generación de handlers
-│   ├── controllers/         # Controladores de rutas
+│   ├── main.rs              # Entry point and server configuration
+│   ├── routes.rs            # Centralized routing system
+│   ├── macros.rs            # Macros for handler generation
+│   ├── controllers/         # Route controllers
 │   │   ├── home.rs
 │   │   ├── about.rs
 │   │   ├── experience.rs
 │   │   ├── projects.rs
-│   │   └── contact.rs       # Con validación de formularios
-│   └── views/               # Templates HTML con Maud
-│       ├── layout.rs        # Layout principal
+│   │   └── contact.rs       # With form validation
+│   └── views/               # HTML templates with Maud
+│       ├── layout.rs        # Main layout
 │       ├── home_view.rs
 │       ├── about_view.rs
 │       ├── experience_view.rs
 │       ├── projects_view.rs
 │       ├── contact_view.rs
 │       └── error_view.rs
-├── static/                  # Archivos estáticos
-│   ├── css/                 # Hojas de estilo
+├── static/                  # Static files
+│   ├── css/                 # Stylesheets
 │   ├── js/                  # JavaScript (htmx, theme)
-│   └── data/                # Datos JSON-LD
-├── Cargo.toml               # Dependencias y configuración
+│   └── data/                # JSON-LD data
+├── Cargo.toml               # Dependencies and configuration
 ├── Dockerfile               # Multi-stage build
-└── CLAUDE.md                # Documentación para Claude Code
+└── CLAUDE.md                # Documentation for Claude Code
 ```
 
-## 🚀 Inicio Rápido
+## 🚀 Quick Start
 
-### Requisitos Previos
+### Prerequisites
 
-- Rust 1.70 o superior
-- Cargo (incluido con Rust)
+- Rust 1.70 or higher
+- Cargo (included with Rust)
 
-### Instalación
+### Installation
 
-1. Clona el repositorio:
+1. Clone the repository:
 ```bash
-git clone <url-del-repositorio>
+git clone <repository-url>
 cd prueba
 ```
 
-2. Ejecuta la aplicación:
+2. Run the application:
 ```bash
 cargo run
 ```
 
-3. Abre tu navegador en `http://127.0.0.1:3000`
+3. Open your browser at `http://127.0.0.1:3000`
 
-### Desarrollo con Auto-Recarga
+### Development with Auto-Reload
 
 ```bash
-# Instala cargo-watch
+# Install cargo-watch
 cargo install cargo-watch
 
-# Ejecuta con auto-recarga
+# Run with auto-reload
 cargo watch -x run
 ```
 
-### Compilación para Producción
+### Production Build
 
 ```bash
-# Compila con optimizaciones
+# Build with optimizations
 cargo build --release
 
-# Ejecuta la versión optimizada
+# Run the optimized version
 cargo run --release
 ```
 
 ## 🐳 Docker
 
-### Construcción de la Imagen
+### Build Image
 
 ```bash
 docker build -t portfolio-rust .
 ```
 
-### Ejecución del Contenedor
+### Run Container
 
 ```bash
 docker run -p 3000:3000 portfolio-rust
 ```
 
-La imagen Docker utiliza una construcción multi-stage que:
-1. Compila un binario estático con musl
-2. Crea una imagen mínima desde scratch
-3. Incluye solo el binario y los archivos estáticos
+The Docker image uses a multi-stage build that:
+1. Compiles a static binary using musl target
+2. Creates a minimal image from scratch
+3. Includes only the binary and static files
 
-## 🔧 Configuración
+## 🔧 Configuration
 
-### Variables de Entorno
+### Environment Variables
 
-- `RUST_LOG`: Nivel de logging (ej: `debug`, `info`)
-- El puerto está fijo en 3000
+- `RUST_LOG`: Logging level (e.g., `debug`, `info`)
+- Port is fixed at 3000
 
-### Personalización
+### Customization
 
-1. **Información personal**: Edita los templates en `src/views/`
-2. **Estilos**: Modifica los archivos CSS en `static/css/`
-3. **Datos estructurados**: Actualiza los archivos JSON-LD en `static/data/`
-4. **Nuevas secciones**: Ver sección "Añadir Nueva Sección"
+1. **Personal information**: Edit templates in `src/views/`
+2. **Styles**: Modify CSS files in `static/css/`
+3. **Structured data**: Update JSON-LD files in `static/data/`
+4. **New sections**: See "Adding New Sections"
 
-## 🏗️ Arquitectura
+## 🏗️ Architecture
 
-### Sistema de Rutas
+### Routing System
 
-El proyecto utiliza un enum centralizado para gestionar las rutas:
+The project uses a centralized enum to manage routes:
 
 ```rust
 // src/routes.rs
@@ -151,66 +151,66 @@ pub enum Route {
 }
 ```
 
-### Generación de Handlers
+### Handler Generation
 
-Los handlers se generan automáticamente con una macro que:
-- Detecta peticiones htmx
-- Renderiza contenido parcial o página completa según corresponda
-- Gestiona la conversión de respuestas
+Handlers are automatically generated with a macro that:
+- Detects htmx requests
+- Renders partial content or full page as appropriate
+- Manages response conversion
 
 ```rust
-generate_page_handler!(home, "Inicio", home_view::render);
+generate_page_handler!(home, "Home", home_view::render);
 ```
 
-### Renderizado Dual
+### Dual Rendering
 
-La aplicación soporta dos modos de renderizado:
-- **Acceso directo**: Devuelve página HTML completa
-- **Navegación htmx**: Devuelve solo el contenido actualizado
+The application supports two rendering modes:
+- **Direct access**: Returns complete HTML page
+- **htmx navigation**: Returns only updated content
 
-## 📝 Añadir Nueva Sección
+## 📝 Adding New Sections
 
-1. Crea el módulo de vista en `src/views/nueva_seccion.rs`
-2. Añade la declaración en `src/views/mod.rs`
-3. Crea el controlador en `src/controllers/nueva_seccion.rs`
-4. Añade la declaración en `src/controllers/mod.rs`
-5. Añade la variante al enum en `src/routes.rs`
-6. Añade el enlace de navegación en `src/views/layout.rs`
-7. Registra la ruta en `main.rs`
+1. Create view module in `src/views/new_section.rs`
+2. Add declaration in `src/views/mod.rs`
+3. Create controller in `src/controllers/new_section.rs`
+4. Add declaration in `src/controllers/mod.rs`
+5. Add variant to enum in `src/routes.rs`
+6. Add navigation link in `src/views/layout.rs`
+7. Register route in `main.rs`
 
-## 🔒 Seguridad
+## 🔒 Security
 
-- Validación de entrada en formularios
-- Headers CSP configurados
-- Gestión automática de headers Vary para caché
-- Sin exposición de información sensible
+- Input validation on forms
+- Configured CSP headers
+- Automatic Vary header management for caching
+- No sensitive information exposure
 
-## ⚡ Optimizaciones de Rendimiento
+## ⚡ Performance Optimizations
 
-- Caché inmutable de 1 año para archivos estáticos
-- Preload de CSS crítico
-- JavaScript diferido
-- Compilación con:
+- 1-year immutable cache for static files
+- Critical CSS preload
+- Deferred JavaScript
+- Compilation with:
   - Link Time Optimization (LTO)
-  - Unidad única de generación de código
-  - Stripping de símbolos
+  - Single codegen unit
+  - Symbol stripping
 
-## 🤝 Contribuir
+## 🤝 Contributing
 
-Las contribuciones son bienvenidas. Por favor:
+Contributions are welcome. Please:
 
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/nueva-caracteristica`)
-3. Commit tus cambios (`git commit -am 'Añade nueva característica'`)
-4. Push a la rama (`git push origin feature/nueva-caracteristica`)
-5. Abre un Pull Request
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -am 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## 📄 Licencia
+## 📄 License
 
-Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Agradecimientos
+## 🙏 Acknowledgments
 
-- [Axum](https://github.com/tokio-rs/axum) por el excelente framework web
-- [Maud](https://maud.lambda.xyz/) por el templating type-safe
-- [htmx](https://htmx.org/) por hacer la web interactiva simple de nuevo
+- [Axum](https://github.com/tokio-rs/axum) for the excellent web framework
+- [Maud](https://maud.lambda.xyz/) for type-safe templating
+- [htmx](https://htmx.org/) for making the web interactive again
