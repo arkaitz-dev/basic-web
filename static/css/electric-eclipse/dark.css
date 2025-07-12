@@ -244,13 +244,7 @@ code {
 }
 
 .nav-link.active::before {
-  content: '●';
-  position: absolute;
-  left: 0.5rem;
-  color: var(--color-accent);
-  font-size: 0.5rem;
-  top: 50%;
-  transform: translateY(-50%);
+  display: none;
 }
 
 /* Alert Enhancements with Patterns for Colorblind Users - Dark Theme */
