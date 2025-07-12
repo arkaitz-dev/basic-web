@@ -4,11 +4,11 @@
    =============================================== */
 
 :root {
-  /* Primary Colors - High Contrast & Colorblind Friendly */
-  --color-brand: #818cf8;           /* Lighter indigo for dark theme */
-  --color-accent: #818cf8;          /* Indigo - 8.2:1 contrast on dark bg */
-  --color-accent-hover: #a5b4fc;    /* Lighter indigo for hover states */
-  --color-accent-light: rgba(129, 140, 248, 0.15); /* Transparent indigo */
+  /* Primary Colors - Coherent with Light Theme */
+  --color-brand: #818cf8;           /* Indigo 400 - optimal for dark */
+  --color-accent: #818cf8;          /* Indigo 400 - 8.2:1 contrast */
+  --color-accent-hover: #a5b4fc;    /* Indigo 300 - lighter on hover */
+  --color-accent-light: rgba(129, 140, 248, 0.15); /* Consistent transparency */
   --color-accent-shadow: rgba(129, 140, 248, 0.25);
   
   /* Background Colors - Clear Dark Hierarchy */
@@ -226,4 +226,74 @@ code {
   .timeline-content:hover {
     box-shadow: 0 4px 12px var(--color-shadow-md);
   }
+}
+
+/* Colorblind Support Enhancements - Dark Theme */
+.nav-link.active {
+  position: relative;
+}
+
+.nav-link.active::before {
+  content: '●';
+  position: absolute;
+  left: 0.5rem;
+  color: var(--color-accent);
+  font-size: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Alert Enhancements with Patterns for Colorblind Users - Dark Theme */
+.alert-success::before {
+  content: '✓';
+  font-weight: bold;
+  margin-right: 0.5rem;
+  color: var(--color-success-text);
+}
+
+.alert-error::before {
+  content: '⚠';
+  font-weight: bold;
+  margin-right: 0.5rem;
+  color: var(--color-error-text);
+}
+
+.alert-warning::before {
+  content: '⚠';
+  font-weight: bold;
+  margin-right: 0.5rem;
+  color: var(--color-warning-text);
+}
+
+.alert-info::before {
+  content: 'ℹ';
+  font-weight: bold;
+  margin-right: 0.5rem;
+  color: var(--color-info-text);
+}
+
+/* Enhanced Project Tags - Dark Theme */
+.tag {
+  border: 1px solid rgba(129, 140, 248, 0.15);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Status indicators with shapes, not just colors - Dark Theme */
+.skill-level-dot.active::after {
+  content: '●';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.5rem;
+  color: var(--color-bg-primary);
+}
+
+/* Enhanced form validation icons - Dark Theme */
+.validation-icon-error {
+  color: var(--color-error-text);
+}
+
+.validation-icon-success {
+  color: var(--color-success-text);
 }
