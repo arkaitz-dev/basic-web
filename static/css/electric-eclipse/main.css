@@ -23,12 +23,12 @@
   /* Typography scale (1.25 ratio - Major Third) */
   --font-size-xs: 0.8rem;     /* 12.8px */
   --font-size-sm: 0.9rem;     /* 14.4px */
-  --font-size-base: 1rem;     /* 16px */
-  --font-size-lg: 1.25rem;    /* 20px */
-  --font-size-xl: 1.563rem;   /* 25px */
-  --font-size-2xl: 1.953rem;  /* 31.25px */
-  --font-size-3xl: 2.441rem;  /* 39px */
-  --font-size-4xl: 3.052rem;  /* 48.8px */
+  --font-size-base: 1.1rem;    /* 17.6px - increased 10% from 16px */
+  --font-size-lg: 1.375rem;   /* 22px - increased 10% from 20px */
+  --font-size-xl: 1.719rem;   /* 27.5px - increased 10% from 25px */
+  --font-size-2xl: 2.148rem;  /* 34.375px - increased 10% from 31.25px */
+  --font-size-3xl: 2.685rem;  /* 42.9px - increased 10% from 39px */
+  --font-size-4xl: 3.357rem;  /* 53.7px - increased 10% from 48.8px */
 
   /* Line heights */
   --line-height-tight: 1.2;
@@ -125,6 +125,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  /* Add padding bottom to prevent content from being hidden under fixed footer */
+  padding-bottom: calc(var(--font-size-sm) * var(--line-height-base) * 0.831 + var(--space-4));
 }
 
 /* ==============================================
@@ -915,11 +917,33 @@ nav {
    ============================================== */
 
 footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
   background-color: var(--color-bg-footer);
   color: var(--color-text-footer);
-  padding: var(--space-6) 0;
-  margin-top: var(--space-9);
+  padding: var(--space-1) var(--space-4);
   text-align: center;
+  font-size: var(--font-size-sm); /* Small but readable - 0.9rem */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(var(--font-size-sm) * var(--line-height-base) * 0.831); /* Reduced another 15% from 0.9775 to 0.831 */
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--color-border-primary);
+}
+
+footer .container {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer p {
+  margin: 0;
 }
 
 footer a {
@@ -1081,7 +1105,9 @@ footer a:hover {
   }
   
   .nav-link {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     text-align: center;
     padding: var(--space-4) var(--space-5);
@@ -1091,6 +1117,7 @@ footer a:hover {
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all var(--transition-base);
+    min-height: 48px; /* Ensure minimum touch target size */
   }
   
   .nav-link:hover,
@@ -1128,7 +1155,7 @@ footer a:hover {
 
 @media (max-width: 480px) {
   :root {
-    --font-size-base: 0.9375rem; /* 15px */
+    --font-size-base: 1.03125rem; /* 16.5px - increased 10% from 15px */
   }
   
   .hero-title {

@@ -29,20 +29,20 @@
     rgba(248, 250, 252, 0.75) 80%,
     rgba(248, 250, 252, 0.5) 100%
   );
-  --color-bg-footer: #0f172a;       /* Dark slate for contrast */
+  --color-bg-footer: #f8fafc;       /* Slate 50 - Light gray for coherent light theme */
   
   /* Text Colors - WCAG AAA Compliant (7:1+ contrast) */
   --color-text-primary: #0f172a;    /* Slate 900 - 16.8:1 contrast */
   --color-text-secondary: #1e293b;   /* Slate 800 - 12.6:1 contrast */
   --color-text-tertiary: #475569;   /* Slate 600 - 7.2:1 contrast */
   --color-text-heading: #0f172a;    /* Maximum contrast for headings */
-  --color-text-footer: #e2e8f0;     /* Light text on dark footer */
+  --color-text-footer: #475569;     /* Slate 600 - Dark text on light footer */
   
   /* Interactive Elements - Colorblind Friendly */
   --color-link: #4338ca;            /* Same as accent - consistency */
   --color-link-hover: #3730a3;      /* Darker on hover */
   --color-link-underline: #a5b4fc;  /* Indigo 300 for subtle underlines */
-  --color-link-footer: #7dd3fc;     /* Sky 300 for footer contrast */
+  --color-link-footer: #4338ca;     /* Indigo 700 for footer links */
   
   /* Form Elements - High Contrast */
   --color-bg-input: #ffffff;        /* White for clarity */
