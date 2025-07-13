@@ -151,7 +151,6 @@ const NavigationManager = {
       
       // Update ARIA states
       toggleButton.setAttribute("aria-expanded", newState);
-      navLinks.setAttribute("aria-hidden", !newState);
       
       // Update visual states
       toggleButton.classList.toggle("active", newState);
@@ -183,8 +182,12 @@ const NavigationManager = {
     const navLinks = document.getElementById("nav-links");
     
     if (toggleButton && navLinks) {
+      // Move focus to toggle button if focus was in menu
+      if (navLinks.contains(document.activeElement)) {
+        toggleButton.focus();
+      }
+      
       toggleButton.setAttribute("aria-expanded", "false");
-      navLinks.setAttribute("aria-hidden", "true");
       toggleButton.classList.remove("active");
       navLinks.classList.remove("active");
     }

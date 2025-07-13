@@ -39,10 +39,14 @@
   --color-text-footer: #cbd5e1;     /* Light text for footer */
   
   /* Interactive Elements */
-  --color-link: #818cf8;            /* Same as accent for consistency */
-  --color-link-hover: #a5b4fc;      /* Lighter on hover */
-  --color-link-underline: #6366f1;  /* Darker for subtle underlines */
+  --color-link: #a5b4fc;            /* Indigo 300 - better contrast 4.8:1 */
+  --color-link-hover: #c7d2fe;      /* Indigo 200 - even lighter on hover */
+  --color-link-underline: #818cf8;  /* Indigo 400 for subtle underlines */
   --color-link-footer: #93c5fd;     /* Light blue for footer links */
+  
+  /* Loading Spinner Colors */
+  --color-spinner: #818cf8;         /* Indigo 400 - bright on dark */
+  --color-spinner-track: #334155;   /* Slate 700 - subtle track */
   
   /* Form Elements */
   --color-bg-input: #334155;        /* Slate 600 input background */

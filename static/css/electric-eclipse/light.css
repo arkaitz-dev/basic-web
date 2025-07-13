@@ -44,6 +44,10 @@
   --color-link-underline: #a5b4fc;  /* Indigo 300 for subtle underlines */
   --color-link-footer: #4338ca;     /* Indigo 700 for footer links */
   
+  /* Loading Spinner Colors */
+  --color-spinner: #4338ca;         /* Indigo 700 - matches accent */
+  --color-spinner-track: #e0e7ff;   /* Indigo 100 - subtle track */
+  
   /* Form Elements - High Contrast */
   --color-bg-input: #ffffff;        /* White for clarity */
   --color-bg-input-focus: #fefefe;  /* Slight tint on focus */

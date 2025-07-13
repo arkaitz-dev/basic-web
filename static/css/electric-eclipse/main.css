@@ -167,6 +167,23 @@ h1 {
   font-size: var(--font-size-4xl);
 }
 
+/* Explicit font-size for h1 within semantic elements to avoid browser warnings */
+article h1,
+aside h1,
+nav h1,
+section h1 {
+  font-size: 3.357rem !important; /* 53.7px - absolute value instead of CSS variable */
+}
+
+/* Additional specific selectors to ensure all h1 elements have explicit font-size */
+.hero h1,
+.hero-content h1,
+section.hero h1,
+section.section h1,
+h1.hero-title {
+  font-size: 3.357rem !important; /* 53.7px - absolute value instead of CSS variable */
+}
+
 h2 {
   font-size: var(--font-size-3xl);
 }
@@ -270,6 +287,7 @@ nav {
   font-weight: var(--font-weight-bold);
   color: var(--color-brand);
   transition: transform var(--transition-fast);
+  white-space: nowrap;
 }
 
 .logo:hover {
@@ -296,6 +314,7 @@ nav {
   display: flex; /* Use flexbox for perfect vertical centering */
   align-items: center; /* Center content vertically */
   justify-content: center; /* Center content horizontally */
+  white-space: nowrap; /* Prevent text wrapping */
 }
 
 /* Active indicator - internal bottom design */
@@ -913,6 +932,27 @@ nav {
 }
 
 /* ==============================================
+   Error Pages
+   ============================================== */
+
+.error-section h1 {
+  font-size: 3.357rem !important; /* 53.7px - absolute value instead of CSS variable */
+  color: var(--color-text-heading);
+  margin-bottom: var(--space-4);
+}
+
+.error-container {
+  text-align: center;
+  padding: var(--space-8) 0;
+}
+
+.error-title {
+  font-size: var(--font-size-2xl);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+/* ==============================================
    Footer
    ============================================== */
 
@@ -962,10 +1002,10 @@ footer a:hover {
 .htmx-indicator {
   opacity: 0;
   transition: opacity var(--transition-fast);
-  position: fixed;
-  top: var(--space-5);
-  right: var(--space-5);
-  z-index: var(--z-tooltip);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-left: var(--space-3);
 }
 
 .htmx-request .htmx-indicator {
@@ -973,10 +1013,10 @@ footer a:hover {
 }
 
 .loading-spinner {
-  width: 32px;
-  height: 32px;
-  border: 3px solid var(--color-border);
-  border-top-color: var(--color-accent);
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--color-spinner-track);
+  border-top-color: var(--color-spinner);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -1053,6 +1093,22 @@ footer a:hover {
   
   .container {
     padding: 0 var(--space-4);
+  }
+  
+  /* Ensure list markers align with paragraphs in mobile */
+  ul:not(.nav-links) li {
+    margin-left: 0;
+    padding-left: 1.5em;
+  }
+  
+  ul:not(.nav-links) li::marker {
+    unicode-bidi: isolate;
+  }
+  
+  /* Reset list style position for better alignment */
+  ul:not(.nav-links) {
+    list-style-position: outside;
+    padding-left: 1.5em;
   }
   
   .mobile-menu-toggle {

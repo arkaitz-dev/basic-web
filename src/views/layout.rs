@@ -43,7 +43,7 @@ pub fn render_page_with_content(current_section: &str, content: Markup) -> Marku
                 link rel="canonical" href="https://tudominio.com";
 
                 // CSP via meta tag (security headers now via HTTP headers)
-                meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-xEK+LF/cTrqPmhixH47N6K6/qV34oVLqo9d+3A3wkHI='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'self'; frame-src 'none'; base-uri 'self'; form-action 'self'";
+                meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self'; font-src 'self'; object-src 'none'; media-src 'self'; frame-src 'none'; base-uri 'self'; form-action 'self'";
 
                 // Structured Data (JSON-LD)
                 script type="application/ld+json" {
@@ -63,12 +63,9 @@ pub fn render_page_with_content(current_section: &str, content: Markup) -> Marku
                 link rel="stylesheet" href="/static/css/electric-eclipse/main.css";
                 link id="theme-stylesheet" rel="stylesheet" href="/static/css/electric-eclipse/light.css";
 
-                // Theme initialization script (inline for performance with CSP hash)
-                script { "(function(){'use strict';try{if(typeof Storage==='undefined')return;const s=()=>window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';const t=localStorage.getItem('theme')||s();const v=['light','dark'].includes(t)?t:'light';const e=document.getElementById('theme-stylesheet');if(e)e.href='/static/css/electric-eclipse/'+v+'.css';document.documentElement.setAttribute('data-theme',v);const m=document.querySelector('meta[name=\"theme-color\"]');if(m)m.content=v==='dark'?'#1a1a1a':'#2563eb';if(!localStorage.getItem('theme'))localStorage.setItem('theme',v)}catch(e){console.error('Theme init error:',e)}})();" }
-
                 // Scripts
-                script src="/static/js/htmx.min.js" defer {}
                 script src="/static/js/theme-init.js" defer {}
+                script src="/static/js/htmx.min.js" defer {}
             }
             body hx-boost="true" {
                 header {
@@ -80,6 +77,10 @@ pub fn render_page_with_content(current_section: &str, content: Markup) -> Marku
                                 hx-target="main"
                                 hx-push-url="true"
                             { "Tu Nombre" }
+                            
+                            div class="htmx-indicator" {
+                                div class="loading-spinner" {}
+                            }
 
                             ul class="nav-links" id="nav-links" {
                                 li {
@@ -140,9 +141,6 @@ pub fn render_page_with_content(current_section: &str, content: Markup) -> Marku
                     (content)
                 }
 
-                div class="htmx-indicator" {
-                    div class="loading-spinner" {}
-                }
 
                 footer {
                     div class="container" {
