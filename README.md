@@ -31,7 +31,7 @@ A modern and professional web portfolio built with Rust, using the Axum framewor
 ## 📁 Project Structure
 
 ```
-prueba/
+basic-web/
 ├── src/
 │   ├── main.rs              # Entry point and server configuration
 │   ├── routes.rs            # Centralized routing system
@@ -71,7 +71,7 @@ prueba/
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd prueba
+cd basic-web
 ```
 
 2. Run the application:

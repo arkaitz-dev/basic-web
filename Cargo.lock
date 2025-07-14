@@ -133,6 +133,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "basic-web"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "axum-htmx",
+ "chrono",
+ "maud",
+ "serde",
+ "tokio",
+ "tower 0.4.13",
+ "tower-http",
+]
+
+[[package]]
 name = "bitflags"
 version = "2.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -593,20 +607,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "02b3e5e68a3a1a02aad3ec490a98007cbc13c37cbe84a3cd7b8e406d76e7f778"
 dependencies = [
  "unicode-ident",
-]
-
-[[package]]
-name = "prueba"
-version = "0.1.0"
-dependencies = [
- "axum",
- "axum-htmx",
- "chrono",
- "maud",
- "serde",
- "tokio",
- "tower 0.4.13",
- "tower-http",
 ]
 
 [[package]]
