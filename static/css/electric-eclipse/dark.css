@@ -169,10 +169,11 @@ code {
 .form-textarea:focus {
   box-shadow: 
     0 0 0 3px var(--color-accent-light),
+    0 4px 12px var(--color-shadow-md),
     0 0 20px rgba(129, 140, 248, 0.1);
 }
 
-/* Enhanced Navigation for Dark Theme */
+/* Contact form specific input focus for dark theme */\n.contact-form .form-group input:focus,\n.contact-form .form-group textarea:focus {\n  box-shadow: \n    0 0 0 3px var(--color-accent-light),\n    0 4px 12px var(--color-shadow-md),\n    0 0 20px rgba(129, 140, 248, 0.1);\n  border-color: var(--color-accent);\n}\n\n/* Enhanced Navigation for Dark Theme */
 .nav-link.active::after {
   box-shadow: 0 0 8px rgba(129, 140, 248, 0.5);
 }
