@@ -173,7 +173,42 @@ code {
     0 0 20px rgba(129, 140, 248, 0.1);
 }
 
-/* Contact form specific input focus for dark theme */\n.contact-form .form-group input:focus,\n.contact-form .form-group textarea:focus {\n  box-shadow: \n    0 0 0 3px var(--color-accent-light),\n    0 4px 12px var(--color-shadow-md),\n    0 0 20px rgba(129, 140, 248, 0.1);\n  border-color: var(--color-accent);\n}\n\n/* Enhanced Navigation for Dark Theme */
+/* Contact form specific input focus for dark theme */
+.contact-form .form-group input:focus,
+.contact-form .form-group textarea:focus {
+  box-shadow: 
+    0 0 0 3px var(--color-accent-light),
+    0 4px 12px var(--color-shadow-md),
+    0 0 20px rgba(129, 140, 248, 0.1);
+  border-color: var(--color-accent);
+}
+
+/* Contact form placeholder styles for dark theme - Enhanced accessibility */
+.contact-form .form-group input::placeholder,
+.contact-form .form-group textarea::placeholder {
+  color: #94a3b8; /* Slate 400 - 4.8:1 contrast ratio for optimal readability */
+  opacity: 1;
+}
+
+.contact-form .form-group input::-webkit-input-placeholder,
+.contact-form .form-group textarea::-webkit-input-placeholder {
+  color: #94a3b8; /* Slate 400 - 4.8:1 contrast ratio for optimal readability */
+  opacity: 1;
+}
+
+.contact-form .form-group input::-moz-placeholder,
+.contact-form .form-group textarea::-moz-placeholder {
+  color: #94a3b8; /* Slate 400 - 4.8:1 contrast ratio for optimal readability */
+  opacity: 1;
+}
+
+.contact-form .form-group input:-ms-input-placeholder,
+.contact-form .form-group textarea:-ms-input-placeholder {
+  color: #94a3b8; /* Slate 400 - 4.8:1 contrast ratio for optimal readability */
+  opacity: 1;
+}
+
+/* Enhanced Navigation for Dark Theme */
 .nav-link.active::after {
   box-shadow: 0 0 8px rgba(129, 140, 248, 0.5);
 }
@@ -240,6 +275,59 @@ code {
   .project-card:hover,
   .timeline-content:hover {
     box-shadow: 0 4px 12px var(--color-shadow-md);
+  }
+}
+
+/* Mobile placeholder styles for dark theme - Enhanced accessibility */
+@media (max-width: 768px) {
+  .contact-form .form-group input::placeholder,
+  .contact-form .form-group textarea::placeholder {
+    color: #94a3b8; /* Slate 400 - 4.8:1 contrast ratio for optimal readability */
+    opacity: 1;
+  }
+
+  .contact-form .form-group input::-webkit-input-placeholder,
+  .contact-form .form-group textarea::-webkit-input-placeholder {
+    color: #94a3b8; /* Slate 400 - 4.8:1 contrast ratio for optimal readability */
+    opacity: 1;
+  }
+
+  .contact-form .form-group input::-moz-placeholder,
+  .contact-form .form-group textarea::-moz-placeholder {
+    color: #94a3b8; /* Slate 400 - 4.8:1 contrast ratio for optimal readability */
+    opacity: 1;
+  }
+
+  .contact-form .form-group input:-ms-input-placeholder,
+  .contact-form .form-group textarea:-ms-input-placeholder {
+    color: #94a3b8; /* Slate 400 - 4.8:1 contrast ratio for optimal readability */
+    opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-form .form-group input::placeholder,
+  .contact-form .form-group textarea::placeholder {
+    color: #94a3b8; /* Slate 400 - 4.8:1 contrast ratio for optimal readability */
+    opacity: 1;
+  }
+
+  .contact-form .form-group input::-webkit-input-placeholder,
+  .contact-form .form-group textarea::-webkit-input-placeholder {
+    color: #94a3b8; /* Slate 400 - 4.8:1 contrast ratio for optimal readability */
+    opacity: 1;
+  }
+
+  .contact-form .form-group input::-moz-placeholder,
+  .contact-form .form-group textarea::-moz-placeholder {
+    color: #94a3b8; /* Slate 400 - 4.8:1 contrast ratio for optimal readability */
+    opacity: 1;
+  }
+
+  .contact-form .form-group input:-ms-input-placeholder,
+  .contact-form .form-group textarea:-ms-input-placeholder {
+    color: #94a3b8; /* Slate 400 - 4.8:1 contrast ratio for optimal readability */
+    opacity: 1;
   }
 }
 
