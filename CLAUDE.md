@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a professional portfolio website built with Rust, Axum web framework, and Maud templating. It demonstrates modern web development with server-side rendering and progressive enhancement using htmx.
+This is a professional portfolio website built with Rust, demonstrating modern web development practices. The application uses Axum 0.8 web framework, Maud 0.26.0 for type-safe HTML templating, and progressive enhancement with htmx 2.0.3 for seamless user experience.
 
 ## Key Technologies
 
@@ -53,45 +53,54 @@ docker run -p 3000:3000 portfolio-rust
 
 ### Core Dependencies
 - **Axum 0.8**: Modern async web framework with macros and form support
-- **axum-htmx 0.8**: HTMX extractors and middleware with auto-vary feature
-- **Tokio 1.0**: Async runtime with full features
-- **Tower 0.4**: Middleware and service abstractions
-- **Tower-HTTP 0.5**: HTTP-specific middleware (static files, headers)
-- **Maud 0.26.0**: Type-safe HTML templating
-- **Chrono 0.4.38**: Date/time handling with serde support
-- **Serde 1.0**: Serialization framework with derive support
+- **axum-htmx 0.8**: HTMX integration with extractors and auto-vary headers for proper caching
+- **Tokio 1.0**: Async runtime with full feature set (fs, net, time, macros)
+- **Tower 0.4**: Service abstractions and middleware composition
+- **Tower-HTTP 0.5**: HTTP-specific middleware (static file serving, response headers)
+- **Maud 0.26.0**: Type-safe HTML templating with compile-time validation
+- **Chrono 0.4.38**: Date/time handling with serde serialization support
+- **Serde 1.0**: Serialization framework with derive macros for forms
 
 ### Application Structure
-- **main.rs**: Entry point with route definitions, JSON-LD helpers, and server configuration
-- **routes.rs**: Centralized route enum with path definitions
-- **macros.rs**: DRY macro for generating htmx-aware page handlers
-- **controllers/**: Request handlers using the page handler macro
-  - `home.rs`: Homepage handler
+- **main.rs**: Application entry point with:
+  - Route configuration and handler registration
+  - JSON-LD helper functions for structured data
+  - Security middleware setup (CSP, XSS protection, headers)
+  - Static file serving with cache headers
+  - Server binding configuration (dev vs production)
+- **routes.rs**: Centralized Route enum with type-safe path definitions
+- **macros.rs**: DRY macro system for generating htmx-aware page handlers
+- **controllers/**: Request handlers leveraging the macro system:
+  - `home.rs`: Homepage handler with dual rendering
   - `about.rs`: About section handler
-  - `experience.rs`: Experience timeline handler
+  - `experience.rs`: Experience timeline handler  
   - `projects.rs`: Projects showcase handler
-  - `contact.rs`: Contact form with GET/POST handlers and validation
-- **views/**: HTML template modules using Maud
-  - `layout.rs`: Main layout with navigation and full page rendering
-  - `home_view.rs`: Homepage content
+  - `contact.rs`: Contact form with comprehensive validation (GET/POST)
+- **views/**: Maud template modules with type-safe HTML:
+  - `layout.rs`: Main layout with navigation, meta tags, and security headers
+  - `home_view.rs`: Homepage content and hero section
   - `about_view.rs`: About section template
   - `experience_view.rs`: Experience timeline template
   - `projects_view.rs`: Projects showcase template
-  - `contact_view.rs`: Contact form with validation
-  - `error_view.rs`: Error pages (404, 500)
+  - `contact_view.rs`: Contact form with validation states
+  - `error_view.rs`: Error pages (404 fallback)
 
 ### Key Features
-- **htmx Integration**: Progressive enhancement using axum-htmx extractors (HxRequest)
-- **Auto-Vary Headers**: Automatic Vary header management for proper htmx caching
-- **Dual Rendering**: Full page rendering for direct access, partial content for htmx requests
-- **Form Handling**: Contact form with server-side validation using Axum Form extractor
-- **Static Assets**: Served from `/static` with cache headers via Tower-HTTP middleware
-- **JSON-LD**: Structured data from `static/data/` files
-- **Error Handling**: Custom 404 fallback handler
-- **Async/Await**: Full async support throughout the application
-- **Theme Support**: Light/dark mode with CSS and JavaScript
-- **Type Safety**: Compile-time HTML validation with Maud
-- **DRY Code**: Macro-based handler generation to reduce repetition
+- **Progressive Enhancement**: htmx 2.0.3 integration with axum-htmx extractors for SPA-like navigation
+- **Auto-Vary Headers**: AutoVaryLayer middleware ensures proper cache behavior with htmx
+- **Dual Rendering System**: 
+  - Full page rendering for direct URL access (bookmarkable)
+  - Partial content for htmx requests (seamless navigation)
+- **Advanced Form Handling**: Contact form with comprehensive server-side validation
+- **Performance Optimization**: Static assets with 1-year immutable cache headers
+- **SEO & Structured Data**: JSON-LD from `static/data/` with API endpoints
+- **Security Hardening**: 
+  - CSP headers via meta tags and HTTP headers
+  - XSS protection, frame options, content type validation
+  - Input sanitization and form validation
+- **Theme Management**: Advanced light/dark mode with system preference detection
+- **Type Safety**: Compile-time HTML validation and route safety with Rust type system
+- **Architecture**: DRY macro system eliminates handler boilerplate
 
 ### Route Pattern
 The application uses a macro to generate handlers that follow this pattern:
@@ -106,15 +115,30 @@ This automatically creates handlers that:
 4. Handle the response conversion
 
 ### Static Assets Organization
-- `static/css/electric-eclipse/`: Stylesheets (main.css, light.css, dark.css)
-- `static/js/`: JavaScript files (htmx.min.js, main.js, theme-init.js)
-- `static/data/`: JSON-LD structured data files
+- `static/css/electric-eclipse/`: Electric Eclipse theme system
+  - `main.css`: Core styles and CSS custom properties
+  - `light.css`: Light theme variables and overrides
+  - `dark.css`: Dark theme variables and overrides
+- `static/js/`: Modern JavaScript modules
+  - `htmx.min.js`: HTMX 2.0.3 library for progressive enhancement
+  - `main.js`: Theme management, accessibility features, and UX enhancements
+  - `theme-init.js`: Theme initialization to prevent flash of unstyled content
+- `static/data/`: JSON-LD structured data
+  - `person.json`: Personal/professional information (Schema.org Person)
+  - `website.json`: Website metadata (Schema.org WebSite)
+- `static/`: Additional assets
+  - Favicon files (ico, png) and app icons
+  - `robots.txt`, `sitemap.xml` for SEO
+  - `site.webmanifest` for PWA capabilities
 
 ### Docker Deployment
-The application includes a multi-stage Dockerfile that:
-1. Builds a static binary using musl target
-2. Creates a minimal scratch image with only the binary and static files
-3. Exposes port 3000 for the web server
+Production-ready containerization with multi-stage build:
+1. **Builder stage**: Compiles static binary using `x86_64-unknown-linux-musl` target
+2. **Runtime stage**: Minimal scratch-based image containing:
+   - Static binary (`/basic-web`)
+   - Static assets (`/static`)
+   - No unnecessary dependencies or OS layers
+3. **Configuration**: Exposes port 3000, optimized for container environments
 
 ## Development Notes
 
@@ -143,9 +167,16 @@ The application includes a multi-stage Dockerfile that:
 - **Production Optimization**: Release profile with LTO, single codegen unit, and stripping
 
 ### Middleware Stack
-The application uses the following middleware layers:
+Layered middleware architecture for security and performance:
 ```rust
-.layer(AutoVaryLayer)  // Automatic Vary headers for htmx caching
+// Security headers middleware
+.layer(SetResponseHeaderLayer::overriding("x-frame-options", "DENY"))
+.layer(SetResponseHeaderLayer::overriding("x-content-type-options", "nosniff"))
+.layer(SetResponseHeaderLayer::overriding("x-xss-protection", "1; mode=block"))
+.layer(SetResponseHeaderLayer::overriding("referrer-policy", "strict-origin-when-cross-origin"))
+.layer(SetResponseHeaderLayer::overriding("permissions-policy", "geolocation=(), microphone=(), camera=()"))
+// HTMX cache management
+.layer(AutoVaryLayer)
 ```
 
 ### Security Considerations
@@ -156,11 +187,20 @@ The application uses the following middleware layers:
 - Content Security Policy (CSP) headers in HTML
 
 ### Performance Optimizations
-- Aggressive caching for static assets (1 year immutable)
-- CSS preload for critical styles
-- Deferred JavaScript loading
-- Optimized release builds with:
-  - opt-level = 3
-  - lto = true
-  - codegen-units = 1
-  - strip = true
+**Frontend Performance:**
+- Static assets: 1-year immutable cache headers (`public, max-age=31536000, immutable`)
+- CSS: Preloaded critical styles, theme-specific loading
+- JavaScript: Deferred loading, modular ES6+ architecture
+- Progressive enhancement: Core functionality without JavaScript
+
+**Backend Performance:**
+- Release profile optimization:
+  ```toml
+  opt-level = 3        # Maximum optimization level
+  lto = true          # Link Time Optimization
+  codegen-units = 1   # Single compilation unit for better optimization
+  strip = true        # Remove debug symbols for smaller binary
+  ```
+- Async/await throughout with Tokio runtime
+- Zero-copy string handling with Maud templates
+- Efficient static file serving with Tower-HTTP
