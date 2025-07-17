@@ -139,6 +139,9 @@ This project includes a `justfile` for streamlined development workflow manageme
 # Show all available commands
 just
 
+# Show help (same as above)
+just help
+
 # Start development server (cargo watch with auto-reload)
 just dev
 
@@ -165,6 +168,15 @@ just run
 
 # Clean build artifacts and development files
 just clean
+
+# Update Cargo dependencies to latest versions
+just update-deps
+
+# Update Rust toolchain to latest stable
+just update-rust
+
+# Update both Rust and dependencies (comprehensive)
+just update-all
 ```
 
 #### Features of the Just Setup
@@ -174,6 +186,8 @@ just clean
 - **Status Monitoring**: Real-time status checking and log viewing
 - **Automatic Cleanup**: Ensures no orphaned processes when stopping the server
 - **Error Handling**: Robust error handling and process verification
+- **Dependency Management**: Easy updates for both Cargo dependencies and Rust toolchain with intelligent server management
+- **Smart Server Handling**: Automatically stops development server during updates and restarts if it was running
 
 #### Why Just?
 

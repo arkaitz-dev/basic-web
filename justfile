@@ -2,15 +2,29 @@
 
 # Default recipe - show available commands
 default:
-    @echo "Available commands:"
+    @echo "📋 Basic-Web Development Commands:"
+    @echo ""
+    @echo "🚀 Development:"
     @echo "  just dev         - Start SNAPPY development server (100ms response)"
     @echo "  just dev-verbose - Start development server with verbose file change tracking"
     @echo "  just stop-dev    - Stop development server safely"
     @echo "  just restart-dev - Restart development server (stop + start)"
     @echo "  just status      - Check development server status"
     @echo "  just logs        - Show development server logs"
+    @echo ""
+    @echo "🔨 Build & Run:"
     @echo "  just build       - Build the project"
     @echo "  just run         - Run the project in release mode"
+    @echo ""
+    @echo "📦 Updates:"
+    @echo "  just update-deps - Update Cargo dependencies to latest versions"
+    @echo "  just update-rust - Update Rust toolchain to latest stable"
+    @echo "  just update-all  - Update both Rust and dependencies (comprehensive)"
+    @echo ""
+    @echo "❓ Help:"
+    @echo "  just help        - Show this help message"
+    @echo ""
+    @echo "💡 Tip: Use 'just help' for this menu anytime"
 
 # Start development server with optimized cargo watch
 dev:
@@ -247,3 +261,116 @@ clean:
     cargo clean
     rm -rf tmp/
     echo "Cleaned build artifacts and development files"
+
+# Update Cargo dependencies to latest compatible versions
+update-deps:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    
+    # Only manage server if not called from update-all
+    if [ "${UPDATE_ALL_RUNNING:-false}" = "false" ]; then
+        # Check if development server is running and remember state
+        SERVER_WAS_RUNNING=false
+        if [ -f tmp/dev-server.pid ]; then
+            PID=$(cat tmp/dev-server.pid)
+            if ps -p $PID > /dev/null 2>&1; then
+                SERVER_WAS_RUNNING=true
+                echo "Development server detected, stopping it for safe dependency update..."
+                just stop-dev
+            fi
+        fi
+    fi
+    
+    echo "Updating Cargo dependencies..."
+    cargo update
+    echo "Dependencies updated successfully!"
+    
+    # Only restart server if we stopped it (not called from update-all)
+    if [ "${UPDATE_ALL_RUNNING:-false}" = "false" ] && [ "${SERVER_WAS_RUNNING:-false}" = "true" ]; then
+        echo "Restarting development server..."
+        just dev
+    elif [ "${UPDATE_ALL_RUNNING:-false}" = "false" ]; then
+        echo "Run 'just build' to verify compatibility with updated dependencies"
+    fi
+
+# Update Rust toolchain to latest stable version
+update-rust:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    
+    # Only manage server if not called from update-all
+    if [ "${UPDATE_ALL_RUNNING:-false}" = "false" ]; then
+        # Check if development server is running and remember state
+        SERVER_WAS_RUNNING=false
+        if [ -f tmp/dev-server.pid ]; then
+            PID=$(cat tmp/dev-server.pid)
+            if ps -p $PID > /dev/null 2>&1; then
+                SERVER_WAS_RUNNING=true
+                echo "Development server detected, stopping it for safe Rust update..."
+                just stop-dev
+            fi
+        fi
+    fi
+    
+    echo "Updating Rust toolchain..."
+    rustup update stable
+    echo "Rust toolchain updated successfully!"
+    echo "Current Rust version:"
+    rustc --version
+    
+    # Only restart server if we stopped it (not called from update-all)
+    if [ "${UPDATE_ALL_RUNNING:-false}" = "false" ] && [ "${SERVER_WAS_RUNNING:-false}" = "true" ]; then
+        echo "Restarting development server..."
+        just dev
+    fi
+
+# Update both Rust toolchain and Cargo dependencies
+update-all:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    
+    # Set flag to prevent sub-commands from managing server
+    export UPDATE_ALL_RUNNING=true
+    
+    # Check if development server is running and remember state
+    SERVER_WAS_RUNNING=false
+    if [ -f tmp/dev-server.pid ]; then
+        PID=$(cat tmp/dev-server.pid)
+        if ps -p $PID > /dev/null 2>&1; then
+            SERVER_WAS_RUNNING=true
+            echo "Development server detected, stopping it for comprehensive update..."
+            just stop-dev
+        fi
+    fi
+    
+    echo "🚀 Starting comprehensive update process..."
+    echo ""
+    
+    echo "📦 Step 1: Updating Rust toolchain..."
+    just update-rust
+    echo "✅ Rust toolchain updated!"
+    echo ""
+    
+    echo "📦 Step 2: Updating Cargo dependencies..."
+    just update-deps
+    echo "✅ Dependencies updated!"
+    echo ""
+    
+    echo "🔨 Step 3: Testing compatibility with updated components..."
+    cargo check
+    echo "✅ Compatibility verified!"
+    echo ""
+    
+    # Restart server if it was running before
+    if [ "$SERVER_WAS_RUNNING" = true ]; then
+        echo "🚀 Restarting development server..."
+        just dev
+        echo "✅ Development server restarted successfully!"
+    else
+        echo "🎉 All updates completed successfully!"
+        echo "Run 'just dev' to start the development server or 'just build' to build the project"
+    fi
+
+# Show help (same as default command)
+help:
+    @just
