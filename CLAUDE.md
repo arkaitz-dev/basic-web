@@ -41,10 +41,25 @@ just restart-dev
 # Build the project
 just build
 
+# Build for release
+just build-release
+
 # Run in release mode
 just run
+
+# Update dependencies
+just update-deps
+
+# Update Rust toolchain
+just update-rust
+
+# Update everything
+just update-all
+
+# Show help
+just help
 ```
-The just commands provide safe process management, background execution, and SNAPPY development experience with optimized cargo-watch settings.
+The just commands provide safe process management, background execution, SNAPPY development experience with optimized cargo-watch settings, and intelligent dependency management.
 
 ### Using Cargo directly
 ```bash

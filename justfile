@@ -14,6 +14,7 @@ default:
     @echo ""
     @echo "🔨 Build & Run:"
     @echo "  just build       - Build the project"
+    @echo "  just build-release - Build for release (optimized)"
     @echo "  just run         - Run the project in release mode"
     @echo ""
     @echo "📦 Updates:"
