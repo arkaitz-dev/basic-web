@@ -8,23 +8,53 @@ This is a professional portfolio website built with Rust, demonstrating modern w
 
 ## Key Technologies
 
-- **Rust** (Edition 2021) - Systems programming language
+- **Rust** (Edition 2024) - Systems programming language
 - **Axum 0.8** - Modern async web framework built on Tokio
 - **axum-htmx 0.8** - HTMX integration with extractors and auto-vary headers
 - **Maud 0.26.0** - Type-safe HTML templating
 - **htmx 2.0.3** - Progressive enhancement library
+- **Just** - Command runner for streamlined development workflow
 - **Docker** - Containerization with multi-stage builds and scratch image
 
 ## Development Commands
 
-### Run the application
+### Using Just (Recommended)
 ```bash
+# Start SNAPPY development server (100ms response time)
+just dev
+
+# Start ultra-verbose development server (50ms response, debugging)
+just dev-verbose
+
+# Check server status
+just status
+
+# View logs in real-time
+just logs
+
+# Stop development server safely
+just stop-dev
+
+# Restart development server (stop + start)
+just restart-dev
+
+# Build the project
+just build
+
+# Run in release mode
+just run
+```
+The just commands provide safe process management, background execution, and SNAPPY development experience with optimized cargo-watch settings.
+
+### Using Cargo directly
+```bash
+# Run the application
 cargo run
 ```
 The server will start at `http://127.0.0.1:3000`
 
-### Development with auto-reload
 ```bash
+# Development with auto-reload
 cargo install cargo-watch
 cargo watch -x run
 ```
@@ -32,11 +62,19 @@ Automatically recompiles and restarts when files change.
 
 ### Build for production
 ```bash
+# Using just
+just build-release
+
+# Using cargo directly
 cargo build --release
 ```
 
 ### Run in release mode
 ```bash
+# Using just
+just run
+
+# Using cargo directly
 cargo run --release
 ```
 
@@ -69,7 +107,7 @@ docker run -p 3000:3000 portfolio-rust
   - Static file serving with cache headers
   - Server binding configuration (dev vs production)
 - **routes.rs**: Centralized Route enum with type-safe path definitions
-- **macros.rs**: DRY macro system for generating htmx-aware page handlers
+- **macros.rs**: DRY macro system for generating htmx-aware page handlers with development logging
 - **controllers/**: Request handlers leveraging the macro system:
   - `home.rs`: Homepage handler with dual rendering
   - `about.rs`: About section handler
@@ -101,6 +139,7 @@ docker run -p 3000:3000 portfolio-rust
 - **Theme Management**: Advanced light/dark mode with system preference detection
 - **Type Safety**: Compile-time HTML validation and route safety with Rust type system
 - **Architecture**: DRY macro system eliminates handler boilerplate
+- **Development Logging**: Enhanced request tracking with colors, timestamps, and HTMX detection (debug mode only)
 
 ### Route Pattern
 The application uses a macro to generate handlers that follow this pattern:
@@ -113,6 +152,7 @@ This automatically creates handlers that:
 2. Return partial content for htmx requests
 3. Return full page for direct access
 4. Handle the response conversion
+5. Log development requests with enhanced details (debug mode only)
 
 ### Static Assets Organization
 - `static/css/electric-eclipse/`: Electric Eclipse theme system

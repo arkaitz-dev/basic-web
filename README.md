@@ -7,6 +7,8 @@ A professional portfolio website built with Rust, featuring the Axum web framewo
 - **Type-safe HTML templating** with Maud for compile-time template validation
 - **Progressive enhancement** with htmx 2.0 for seamless SPA-like navigation
 - **Dual rendering system**: Full pages for direct access, partial content for htmx requests
+- **Development logging system**: Enhanced request tracking with colors and HTMX detection (debug mode only)
+- **SNAPPY development workflow**: Ultra-fast cargo-watch with 100ms response time
 - **Advanced theme management** with light/dark mode and system preference detection
 - **Contact form** with comprehensive server-side validation and error handling
 - **SEO optimization** with JSON-LD structured data and complete meta tags
@@ -19,12 +21,13 @@ A professional portfolio website built with Rust, featuring the Axum web framewo
 ## 🛠️ Tech Stack
 
 ### Core Stack
-- **[Rust 2021](https://www.rust-lang.org/)** - Systems programming language with memory safety
+- **[Rust 2024](https://www.rust-lang.org/)** - Systems programming language with memory safety
 - **[Axum 0.8](https://github.com/tokio-rs/axum)** - Modern async web framework with macros and form support
 - **[axum-htmx 0.8](https://github.com/robertwayne/axum-htmx)** - HTMX integration with extractors and auto-vary headers
 - **[Tokio 1.0](https://tokio.rs/)** - Async runtime with full feature set
 - **[Maud 0.26.0](https://maud.lambda.xyz/)** - Type-safe HTML templating with compile-time validation
 - **[Tower-HTTP 0.5](https://github.com/tower-rs/tower-http)** - HTTP middleware for static files and headers
+- **[Just](https://just.systems/)** - Command runner for streamlined development workflow
 
 ### Frontend Technologies
 - **[htmx 2.0.3](https://htmx.org/)** - Progressive enhancement library
@@ -63,6 +66,7 @@ basic-web/
 │   ├── sitemap.xml          # Site structure for SEO
 │   └── site.webmanifest     # Progressive Web App manifest
 ├── Cargo.toml               # Dependencies and configuration
+├── justfile                 # Task runner commands
 ├── Dockerfile               # Multi-stage build
 └── CLAUDE.md                # Documentation for Claude Code
 ```
@@ -71,8 +75,9 @@ basic-web/
 
 ### Prerequisites
 
-- Rust 1.70 or higher
+- Rust 1.80 or higher (for Rust 2024 edition support)
 - Cargo (included with Rust)
+- [just](https://just.systems/) command runner (optional but recommended)
 
 ### Installation
 
@@ -82,15 +87,28 @@ git clone <repository-url>
 cd basic-web
 ```
 
-2. Run the application:
+2. **Option A: Using Just (Recommended)**
 ```bash
-cargo run
+# Install just command runner if not already installed
+cargo install just
+
+# Start SNAPPY development server (100ms response time)
+just dev
+
+# Start with ultra-verbose debugging (50ms response)
+just dev-verbose
+
+# Check server status
+just status
+
+# Stop development server
+just stop-dev
+
+# Restart development server (if needed)
+just restart-dev
 ```
 
-3. Open your browser at `http://127.0.0.1:3000`
-
-### Development with Auto-Reload
-
+3. **Option B: Using Cargo directly**
 ```bash
 # Install cargo-watch
 cargo install cargo-watch
@@ -99,6 +117,8 @@ cargo install cargo-watch
 cargo watch -x run
 ```
 
+4. Open your browser at `http://127.0.0.1:3000`
+
 ### Production Build
 
 ```bash
@@ -106,6 +126,74 @@ cargo watch -x run
 cargo build --release
 
 # Run the optimized version
+cargo run --release
+```
+
+## 🔧 Development Tools
+
+### Just Command Runner
+
+This project includes a `justfile` for streamlined development workflow management:
+
+```bash
+# Show all available commands
+just
+
+# Start development server (cargo watch with auto-reload)
+just dev
+
+# Check development server status
+just status
+
+# View development server logs in real-time
+just logs
+
+# Stop development server safely
+just stop-dev
+
+# Restart development server (stop + start)
+just restart-dev
+
+# Build the project
+just build
+
+# Build for release
+just build-release
+
+# Run in release mode
+just run
+
+# Clean build artifacts and development files
+just clean
+```
+
+#### Features of the Just Setup
+
+- **Safe Process Management**: Uses PID files to track and safely terminate development servers
+- **Background Execution**: Development server runs in background with logs redirected to `tmp/cargo_watch.log`
+- **Status Monitoring**: Real-time status checking and log viewing
+- **Automatic Cleanup**: Ensures no orphaned processes when stopping the server
+- **Error Handling**: Robust error handling and process verification
+
+#### Why Just?
+
+- **Cross-platform**: Works on Windows, macOS, and Linux
+- **Simple syntax**: Easy to read and maintain task definitions
+- **No dependencies**: Single binary with no runtime requirements
+- **Project-specific**: Commands are contextual to this project
+- **Developer experience**: Simplifies common development tasks
+
+### Manual Development
+
+If you prefer not to use Just, you can still use standard Cargo commands:
+
+```bash
+# Development with auto-reload
+cargo install cargo-watch
+cargo watch -x run
+
+# Build and run
+cargo run
 cargo run --release
 ```
 
@@ -161,12 +249,12 @@ pub enum Route {
 }
 ```
 
-### DRY Handler Generation
+### DRY Handler Generation & Development Logging
 
 The project uses a custom macro system to eliminate code repetition:
 
 ```rust
-// Automatically generates htmx-aware handlers
+// Automatically generates htmx-aware handlers with development logging
 generate_page_handler!(handler, "Section Title", view_module);
 ```
 
@@ -175,6 +263,7 @@ This macro creates handlers that:
 - Return partial content for htmx requests (SPA-like navigation)
 - Return complete pages for direct access (bookmarkable URLs)
 - Handle response conversion automatically
+- **Development logging**: Enhanced request tracking with timestamp, method, URI, request type (HTMX/FULL), source detection, and referer information (debug mode only)
 
 ### Dual Rendering
 
