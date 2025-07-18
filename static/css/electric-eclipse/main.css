@@ -127,6 +127,12 @@ body {
   text-rendering: optimizeLegibility;
   /* Add padding bottom to prevent content from being hidden under fixed footer */
   padding-bottom: calc(var(--font-size-sm) * var(--line-height-base) * 0.831 + var(--space-4));
+  /* Optimize scrolling performance on mobile */
+  -webkit-overflow-scrolling: touch;
+  /* Force hardware acceleration for smoother scrolling */
+  transform: translateZ(0);
+  /* Optimize rendering */
+  will-change: scroll-position;
 }
 
 /* ==============================================
@@ -265,6 +271,9 @@ header {
   z-index: var(--z-sticky);
   transition: background-color var(--transition-base);
   box-sizing: border-box; /* Include border in height calculation */
+  /* Optimize for mobile scrolling */
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 nav {
@@ -1167,6 +1176,110 @@ footer a:hover {
 /* Entrance animations */
 .animate-in {
   animation: fadeInUp 0.5s ease forwards;
+}
+
+/* ==============================================
+   Mobile Optimization
+   ============================================== */
+
+/* Mobile-specific background wrapper for optimal performance */
+.mobile-bg-wrapper {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  /* Enable background wrapper on mobile */
+  .mobile-bg-wrapper {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-hero);
+    z-index: -2;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    contain: strict;
+  }
+  
+  .mobile-bg-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-mesh);
+    z-index: -1;
+  }
+  
+  /* Disable backdrop-filter on mobile to prevent glitches */
+  header {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: var(--color-bg-header);
+  }
+  
+  .nav-links {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  
+  .nav-link {
+    backdrop-filter: none !important;
+  }
+  
+  /* Optimize body for scrolling content */
+  body {
+    background: transparent !important;
+    background-attachment: initial !important;
+    position: relative;
+    z-index: 1;
+  }
+  
+  body::before {
+    display: none !important;
+  }
+  
+  /* Ensure main content scrolls above fixed background */
+  main {
+    position: relative;
+    z-index: 1;
+    background-color: transparent;
+  }
+  
+  /* Reduce transform effects on mobile */
+  .card:hover,
+  .project-card:hover {
+    transform: none;
+  }
+  
+  /* Simplify box-shadows on mobile */
+  .form-input:hover,
+  .form-textarea:hover,
+  .contact-form .form-group input:hover,
+  .contact-form .form-group textarea:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  
+  .form-input:focus,
+  .form-textarea:focus,
+  .contact-form .form-group input:focus,
+  .contact-form .form-group textarea:focus {
+    transform: none;
+    box-shadow: 0 0 0 3px var(--color-accent-light);
+  }
+  
+  /* Optimize button hover effects */
+  .btn-primary:hover,
+  .contact-form .cta-button:hover {
+    transform: none;
+    box-shadow: none;
+  }
 }
 
 /* ==============================================
