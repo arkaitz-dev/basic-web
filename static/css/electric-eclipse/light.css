@@ -97,28 +97,9 @@
 
 /* Enhanced Background with Subtle Pattern */
 body {
-  /* Fallback solid color that matches the gradient to prevent glitches */
-  background-color: #f8fafc; /* Matches the dominant color of the light gradient */
+  /* Solid color background - intermediate tone between gradient extremes */
+  background-color: #f1f5f9; /* Slate 100 - clean, professional light gray */
   /* Removed position: relative to fix header/footer positioning */
-}
-
-/* Background layer styling for light theme */
-.background-layer {
-  /* Primary gradient background */
-  background: var(--gradient-hero);
-  /* Add mesh overlay using pseudo-element */
-}
-
-.background-layer::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--gradient-mesh);
-  pointer-events: none;
-  /* Match parent size automatically */
 }
 
 /* Enhanced Card Styling for Light Theme */

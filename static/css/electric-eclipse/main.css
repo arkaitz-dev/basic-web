@@ -66,7 +66,7 @@
 
   /* Container widths */
   --container-sm: 640px;
-  --container-md: 768px;
+  --container-md: 806px;
   --container-lg: 1024px;
   --container-xl: 1280px;
 
@@ -76,37 +76,6 @@
   /* Focus outline */
   --focus-outline-width: 3px;
   --focus-outline-offset: 2px;
-}
-
-/* ==============================================
-   Background Layer - Chrome Android Fix
-   ============================================== */
-
-/* Dedicated background layer to prevent rendering glitches */
-.background-layer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  /* Ensure it's below everything */
-  z-index: -999;
-  /* Disable all interactions */
-  pointer-events: none;
-  /* Isolate rendering completely */
-  isolation: isolate;
-  /* Force GPU layer */
-  transform: translate3d(0, 0, 0);
-  -webkit-transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  /* Prevent any layout participation */
-  contain: strict;
-  /* Disable touch/scroll events */
-  touch-action: none;
-  /* Ensure it never scrolls */
-  overflow: hidden;
-  /* Background will be set by theme CSS */
 }
 
 /* ==============================================
@@ -375,6 +344,7 @@ nav {
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  margin-right: var(--space-4); /* Add margin to the right */
 }
 
 /* Theme toggle button */
@@ -1239,7 +1209,7 @@ footer a:hover {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 806px) {
   :root {
     --header-height: calc(3.5rem * 0.85); /* 2.975rem - reduced by 15% */
   }
