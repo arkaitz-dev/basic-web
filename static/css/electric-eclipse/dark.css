@@ -96,8 +96,27 @@
 
 /* Gradient Background Override for Body */
 body {
+  /* Fallback solid color that matches the gradient to prevent glitches */
+  background-color: #0f172a; /* Matches the dominant color of the dark gradient */
+}
+
+/* Background layer styling for dark theme */
+.background-layer {
+  /* Primary gradient background */
   background: var(--gradient-hero);
-  background-attachment: fixed;
+  /* Add mesh overlay using pseudo-element */
+}
+
+.background-layer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-mesh);
+  pointer-events: none;
+  /* Match parent size automatically */
 }
 
 /* Enhanced glow effects for dark theme */
