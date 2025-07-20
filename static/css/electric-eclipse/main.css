@@ -344,7 +344,6 @@ nav {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  margin-right: var(--space-4); /* Add margin to the right */
 }
 
 /* Theme toggle button */
