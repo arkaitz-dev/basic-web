@@ -68,9 +68,6 @@ pub fn render_page_with_content(current_section: &str, content: Markup) -> Marku
                 script src="/static/js/htmx.min.js" defer {}
             }
             body hx-boost="true" {
-                // Mobile background wrapper for optimized gradient rendering
-                div class="mobile-bg-wrapper" {}
-                
                 header {
                     div class="container" {
                         nav {
