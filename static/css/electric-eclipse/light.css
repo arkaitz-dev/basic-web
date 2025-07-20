@@ -99,7 +99,7 @@
 body {
   background: var(--gradient-hero);
   background-attachment: fixed;
-  position: relative;
+  /* Removed position: relative to fix header/footer positioning */
 }
 
 body::before {
