@@ -4,32 +4,32 @@
    =============================================== */
 
 :root {
-  /* Primary Colors - Scientific Selection for Accessibility */
-  --color-brand: #4338ca;           /* Indigo 700 - 8.2:1 contrast on white */
-  --color-accent: #4338ca;          /* Primary indigo - excellent contrast */
-  --color-accent-hover: #3730a3;    /* Indigo 800 - darker on hover */
-  --color-accent-light: #e0e7ff;    /* Indigo 100 - light background */
-  --color-accent-shadow: rgba(67, 56, 202, 0.15);
+  /* Primary Colors - Electric Violet-Indigo Palette */
+  --color-brand: #6d28d9;           /* Violet 700 - vibrant electric purple */
+  --color-accent: #6d28d9;          /* Electric violet - 7.5:1 contrast (still AAA) */
+  --color-accent-hover: #5b21b6;    /* Violet 800 - darker on hover */
+  --color-accent-light: #ddd6fe;    /* Violet 200 - more visible light background */
+  --color-accent-shadow: rgba(109, 40, 217, 0.20);
   
-  /* Background Colors - Clean Hierarchy */
+  /* Background Colors - Electric Eclipse Palette - More Vibrant */
   --color-bg-primary: #ffffff;      /* Pure white - maximum contrast */
-  --color-bg-secondary: #f8fafc;    /* Slate 50 - subtle differentiation */
-  --color-bg-tertiary: #f1f5f9;     /* Slate 100 - nested elements */
-  --color-bg-card: #ffffff;         /* White cards for clarity */
-  --color-bg-header: rgba(248, 250, 252, 0.95); /* Translucent slate 50 */
-  --color-bg-mobile-menu: rgba(248, 250, 252, 0.98);
-  --color-bg-hover: #f1f5f9;        /* Slate 100 - subtle hover */
+  --color-bg-secondary: #ede9fe;    /* Violet 100 - stronger differentiation */
+  --color-bg-tertiary: #ddd6fe;     /* Violet 200 - bolder nested elements */
+  --color-bg-card: #f5f3ff;         /* Light violet cards with personality */
+  --color-bg-header: rgba(221, 214, 254, 0.98); /* Violet 200 translucent - bolder header */
+  --color-bg-mobile-menu: rgba(221, 214, 254, 0.98);
+  --color-bg-hover: #c7b5fd;        /* Violet 300 - more vibrant hover effect */
   
-  /* Mobile Menu Gradient - Light Theme */
+  /* Mobile Menu Gradient - Electric Eclipse Light Theme */
   --mobile-menu-gradient: linear-gradient(
     to bottom,
-    rgba(248, 250, 252, 0.98) 0%,
-    rgba(248, 250, 252, 0.92) 30%,
-    rgba(248, 250, 252, 0.85) 60%,
-    rgba(248, 250, 252, 0.75) 80%,
-    rgba(248, 250, 252, 0.5) 100%
+    rgba(221, 214, 254, 0.98) 0%,
+    rgba(221, 214, 254, 0.95) 30%,
+    rgba(233, 227, 254, 0.92) 60%,
+    rgba(237, 233, 254, 0.88) 80%,
+    rgba(237, 233, 254, 0.80) 100%
   );
-  --color-bg-footer: #f8fafc;       /* Slate 50 - Light gray for coherent light theme */
+  --color-bg-footer: #ddd6fe;       /* Violet 200 - bolder footer with personality */
   
   /* Text Colors - WCAG AAA Compliant (7:1+ contrast) */
   --color-text-primary: #0f172a;    /* Slate 900 - 16.8:1 contrast */
@@ -38,24 +38,24 @@
   --color-text-heading: #0f172a;    /* Maximum contrast for headings */
   --color-text-footer: #475569;     /* Slate 600 - Dark text on light footer */
   
-  /* Interactive Elements - Colorblind Friendly */
-  --color-link: #4338ca;            /* Same as accent - consistency */
-  --color-link-hover: #3730a3;      /* Darker on hover */
-  --color-link-underline: #a5b4fc;  /* Indigo 300 for subtle underlines */
-  --color-link-footer: #4338ca;     /* Indigo 700 for footer links */
+  /* Interactive Elements - Electric Eclipse */
+  --color-link: #6d28d9;            /* Vibrant electric violet */
+  --color-link-hover: #5b21b6;      /* Darker violet on hover */
+  --color-link-underline: #a78bfa;  /* Violet 400 for more visible underlines */
+  --color-link-footer: #6d28d9;     /* Electric violet for footer links */
   
   /* Loading Spinner Colors */
-  --color-spinner: #4338ca;         /* Indigo 700 - matches accent */
-  --color-spinner-track: #e0e7ff;   /* Indigo 100 - subtle track */
+  --color-spinner: #6d28d9;         /* Vibrant electric violet */
+  --color-spinner-track: #ddd6fe;   /* Violet 200 - more visible track */
   
   /* Form Elements - High Contrast */
   --color-bg-input: #ffffff;        /* White for clarity */
-  --color-bg-input-focus: #fefefe;  /* Slight tint on focus */
-  --color-border: #d1d5db;          /* Gray 300 - visible borders */
-  --color-border-hover: #9ca3af;    /* Gray 400 - stronger on hover */
+  --color-bg-input-focus: #faf9ff;  /* Slight violet tint on focus */
+  --color-border: #ddd6fe;          /* Violet 200 - visible borders */
+  --color-border-hover: #a78bfa;    /* Violet 400 - stronger on hover */
   
   /* Focus Indicator - Maximum Visibility */
-  --color-focus: #4338ca;           /* Match accent for consistency */
+  --color-focus: #6d28d9;           /* Vibrant electric violet */
   
   /* Status Colors - Colorblind Safe Palette */
   --color-success-bg: #f0fdf4;      /* Green 50 background */
@@ -74,14 +74,14 @@
   --color-info-text: #1e3a8a;       /* Blue 900 - 9.2:1 contrast */
   --color-info-border: #3b82f6;     /* Blue 500 border */
   
-  /* Tags & Badges - Contrast Optimized */
-  --color-bg-tag: #e0e7ff;          /* Indigo 100 background */
-  --color-text-tag: #312e81;        /* Indigo 900 - 9.1:1 contrast */
+  /* Tags & Badges - More Vibrant */
+  --color-bg-tag: #c7b5fd;          /* Violet 300 - vibrant tag background */
+  --color-text-tag: #4c1d95;        /* Violet 900 - maintains excellent contrast */
   
-  /* Shadows - Subtle Professional Depth */
-  --color-shadow-sm: rgba(15, 23, 42, 0.05);
-  --color-shadow-md: rgba(15, 23, 42, 0.10);
-  --color-shadow-lg: rgba(15, 23, 42, 0.15);
+  /* Shadows - Electric Eclipse with bold violet presence */
+  --color-shadow-sm: rgba(109, 40, 217, 0.10);
+  --color-shadow-md: rgba(109, 40, 217, 0.18);
+  --color-shadow-lg: rgba(109, 40, 217, 0.25);
   
   /* Special Gradients - Cohesive with Dark Theme */
   --gradient-hero: linear-gradient(135deg, 
@@ -95,37 +95,58 @@
                    radial-gradient(at 0% 50%, rgba(139, 92, 246, 0.02) 0%, transparent 50%);
 }
 
-/* Enhanced Background with Subtle Pattern */
+/* Enhanced Background with Vibrant Pattern */
 body {
-  /* Solid color background - intermediate tone between gradient extremes */
-  background-color: #f1f5f9; /* Slate 100 - clean, professional light gray */
+  /* Electric Eclipse: Balanced violet-tinted background */
+  background-color: #e9e3fe; /* Custom violet between 100 and 200 - perfect balance */
+  /* Subtle gradient overlay for depth */
+  background-image: 
+    radial-gradient(at 20% 30%, rgba(139, 92, 246, 0.05) 0%, transparent 50%),
+    radial-gradient(at 80% 70%, rgba(167, 139, 250, 0.05) 0%, transparent 50%),
+    radial-gradient(at 40% 90%, rgba(196, 181, 253, 0.05) 0%, transparent 50%);
   /* Removed position: relative to fix header/footer positioning */
 }
 
-/* Enhanced Card Styling for Light Theme */
+/* Enhanced Card Styling - Vibrant Light Theme */
 .card,
 .project-card,
 .timeline-content {
+  background: linear-gradient(135deg, #ffffff 0%, #faf9ff 100%);
   box-shadow: 
+    0 2px 8px var(--color-shadow-sm),
     0 1px 3px var(--color-shadow-sm),
-    0 1px 2px var(--color-shadow-sm);
-  border: 1px solid rgba(15, 23, 42, 0.05);
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(139, 92, 246, 0.15);
 }
 
 .card:hover,
 .project-card:hover,
 .timeline-content:hover {
+  background: linear-gradient(135deg, #ffffff 0%, #f5f3ff 100%);
   box-shadow: 
-    0 4px 12px var(--color-shadow-md),
-    0 2px 4px var(--color-shadow-sm);
-  border-color: rgba(67, 56, 202, 0.1);
+    0 8px 25px var(--color-shadow-md),
+    0 3px 8px var(--color-shadow-sm),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+  border-color: rgba(139, 92, 246, 0.3);
+  transform: translateY(-2px);
 }
 
-/* Enhanced Button Styling */
-.btn-primary:hover {
+/* Enhanced Button Styling - Bold Electric Style */
+.btn-primary {
+  background: linear-gradient(135deg, #6d28d9 0%, #7c3aed 100%);
+  border: none;
   box-shadow: 
-    0 4px 12px var(--color-accent-shadow),
-    0 2px 4px rgba(67, 56, 202, 0.1);
+    0 4px 15px rgba(109, 40, 217, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+  box-shadow: 
+    0 6px 20px rgba(109, 40, 217, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 0 30px rgba(109, 40, 217, 0.2);
+  transform: translateY(-2px);
 }
 
 /* Code Highlighting for Light Theme */
@@ -144,12 +165,19 @@ code {
   color: var(--color-text-primary);
 }
 
-/* Enhanced Timeline for Light Theme */
+/* Enhanced Timeline - Bold Electric Style */
 .timeline-marker {
+  background: linear-gradient(135deg, #6d28d9 0%, #8b5cf6 100%);
   box-shadow: 
     0 0 0 4px var(--color-bg-primary),
-    0 0 0 6px var(--color-accent-light),
-    0 2px 4px rgba(67, 56, 202, 0.1);
+    0 0 0 8px rgba(139, 92, 246, 0.2),
+    0 4px 15px rgba(109, 40, 217, 0.3);
+}
+
+/* Active Navigation Link - More Vibrant */
+.nav-link.active {
+  color: var(--color-accent);
+  font-weight: 600;
 }
 
 /* Scrollbar Styling - Clean Light Theme */
@@ -188,15 +216,19 @@ code {
   border-color: var(--color-accent);
 }
 
-/* Contact form specific input focus for light theme */\n.contact-form .form-group input:focus,\n.contact-form .form-group textarea:focus {\n  box-shadow: \n    0 0 0 3px var(--color-accent-light),\n    0 4px 12px var(--color-shadow-md);\n  border-color: var(--color-accent);\n}\n\n/* Navigation Enhancements */
+/* Contact form specific input focus for light theme */\n.contact-form .form-group input:focus,\n.contact-form .form-group textarea:focus {\n  box-shadow: \n    0 0 0 3px var(--color-accent-light),\n    0 4px 12px var(--color-shadow-md);\n  border-color: var(--color-accent);\n}\n\n/* Navigation Enhancements - Bold and Vibrant */
 .nav-link.active::after {
   background-color: var(--color-accent);
-  box-shadow: 0 0 4px rgba(67, 56, 202, 0.3);
+  box-shadow: 0 0 8px rgba(109, 40, 217, 0.5);
 }
 
 .nav-link:hover {
   background-color: var(--color-bg-hover);
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+  color: var(--color-accent);
+  box-shadow: 
+    0 2px 8px rgba(109, 40, 217, 0.15),
+    inset 0 -2px 0 rgba(109, 40, 217, 0.3);
+  transform: translateY(-1px);
 }
 
 /* Skill Category Enhancements */
@@ -313,6 +345,163 @@ code {
 
 .nav-link.active::before {
   display: none;
+}
+
+/* Enhanced Header Styling - Bold Electric Eclipse */
+header {
+  background: var(--color-bg-header) !important;
+  backdrop-filter: blur(12px);
+  border-bottom: 2px solid rgba(139, 92, 246, 0.2);
+  box-shadow: 
+    0 4px 20px rgba(109, 40, 217, 0.08),
+    0 1px 3px rgba(109, 40, 217, 0.12);
+}
+
+/* Logo with Electric Personality */
+.logo {
+  font-weight: 700;
+  background: linear-gradient(135deg, #6d28d9 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(109, 40, 217, 0.3);
+}
+
+.logo:hover {
+  background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transform: scale(1.05);
+}
+
+/* Enhanced Footer - Bold and Colorful */
+footer {
+  background: var(--color-bg-footer) !important;
+  border-top: 2px solid rgba(139, 92, 246, 0.2);
+  box-shadow: 
+    0 -4px 20px rgba(109, 40, 217, 0.08),
+    0 -1px 3px rgba(109, 40, 217, 0.12);
+}
+
+footer a {
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: none;
+  background: linear-gradient(to right, var(--color-accent), var(--color-accent));
+  background-size: 0% 2px;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  transition: background-size 0.3s ease;
+}
+
+footer a:hover {
+  background-size: 100% 2px;
+  color: var(--color-accent-hover);
+}
+
+/* Theme Toggle Button Enhancement */
+.theme-toggle {
+  background: rgba(139, 92, 246, 0.1);
+  border: 2px solid rgba(139, 92, 246, 0.3);
+  color: var(--color-accent);
+  box-shadow: 0 2px 8px rgba(109, 40, 217, 0.15);
+}
+
+.theme-toggle:hover {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: var(--color-accent);
+  box-shadow: 
+    0 4px 12px rgba(109, 40, 217, 0.25),
+    0 0 20px rgba(109, 40, 217, 0.15);
+  transform: translateY(-1px) scale(1.05);
+}
+
+/* Mobile Menu Toggle - Vibrant */
+.mobile-menu-toggle span {
+  background-color: var(--color-accent);
+  box-shadow: 0 0 4px rgba(109, 40, 217, 0.3);
+}
+
+.mobile-menu-toggle:hover {
+  background-color: rgba(139, 92, 246, 0.1);
+  border: 2px solid rgba(139, 92, 246, 0.3);
+  box-shadow: 0 2px 8px rgba(109, 40, 217, 0.15);
+}
+
+.mobile-menu-toggle.active {
+  background-color: rgba(139, 92, 246, 0.15);
+  border: 2px solid var(--color-accent);
+}
+
+/* Mobile Menu Dropdown - Electric Eclipse Style */
+@media (max-width: 806px) {
+  .nav-links {
+    background: linear-gradient(
+      to bottom,
+      rgba(221, 214, 254, 0.98) 0%,
+      rgba(221, 214, 254, 0.95) 30%,
+      rgba(233, 227, 254, 0.92) 60%,
+      rgba(237, 233, 254, 0.88) 80%,
+      rgba(237, 233, 254, 0.80) 100%
+    ) !important;
+    border-left: 3px solid var(--color-accent);
+    box-shadow: 
+      0 8px 32px rgba(109, 40, 217, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+  
+  .nav-links::before {
+    background: radial-gradient(
+      circle at 50% 0%,
+      rgba(139, 92, 246, 0.1) 0%,
+      transparent 70%
+    );
+  }
+  
+  /* Mobile Navigation Links */
+  .nav-links .nav-link {
+    font-size: 1.125rem;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(139, 92, 246, 0.1);
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-links .nav-link:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    box-shadow: 
+      0 4px 12px rgba(109, 40, 217, 0.15),
+      inset 0 -2px 0 rgba(109, 40, 217, 0.3);
+    transform: translateX(4px);
+  }
+  
+  .nav-links .nav-link.active {
+    background: linear-gradient(135deg, rgba(109, 40, 217, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    font-weight: 600;
+    box-shadow: 
+      0 2px 8px rgba(109, 40, 217, 0.2),
+      inset 0 2px 4px rgba(109, 40, 217, 0.1);
+  }
+  
+  .nav-links .nav-link.active::before {
+    content: '';
+    position: absolute;
+    left: -3px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 24px;
+    background: var(--color-accent);
+    border-radius: 0 3px 3px 0;
+    box-shadow: 0 0 8px rgba(109, 40, 217, 0.5);
+  }
 }
 
 /* Status indicators with shapes, not just colors */
