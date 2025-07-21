@@ -216,10 +216,16 @@ const NavigationManager = {
   },
 
   setupActiveStates() {
+    // Update active link on initial page load
     this.updateActiveNavLink();
     
     // Update active state after htmx navigation
     document.body.addEventListener("htmx:afterSwap", () => {
+      this.updateActiveNavLink();
+    });
+    
+    // Also update on browser navigation (back/forward buttons)
+    window.addEventListener("popstate", () => {
       this.updateActiveNavLink();
     });
   },
@@ -228,15 +234,32 @@ const NavigationManager = {
     const navLinks = document.querySelectorAll("#nav-links a");
     const currentPath = window.location.pathname;
     
+    // Remove active state from all links first
     navLinks.forEach(link => {
       link.classList.remove("active");
       link.removeAttribute("aria-current");
+    });
+    
+    // Find and activate the matching link
+    navLinks.forEach(link => {
+      const linkPath = link.getAttribute("href");
       
-      if (link.getAttribute("href") === currentPath) {
+      // Check for exact match or home page special case
+      if (linkPath === currentPath || (currentPath === "/" && linkPath === "/")) {
         link.classList.add("active");
         link.setAttribute("aria-current", "page");
       }
     });
+    
+    // Also check logo link if it exists
+    const logoLink = document.querySelector(".logo");
+    if (logoLink) {
+      const logoPath = logoLink.getAttribute("href");
+      if (logoPath === currentPath || (currentPath === "/" && logoPath === "/")) {
+        // Optionally add active state to logo on home page
+        // logoLink.classList.add("active");
+      }
+    }
   },
 
   setupSmoothScrolling() {
