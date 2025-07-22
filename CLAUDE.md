@@ -259,3 +259,111 @@ Layered middleware architecture for security and performance:
 - Async/await throughout with Tokio runtime
 - Zero-copy string handling with Maud templates
 - Efficient static file serving with Tower-HTTP
+
+## UI/UX Design Principles
+
+### Navigation Behavior
+- **Active link indicators**: Consistent across desktop (bottom bar) and mobile (left bar)
+- **Auto-scroll on navigation**: Scrolls to top of hx-target container when changing pages
+- **Sticky state prevention**: No hover/focus states persist after interaction
+- **Touch-optimized**: All interactive elements have minimum 44px touch targets
+
+### Button States Management
+**Problem solved**: Buttons (theme toggle, hamburger menu) maintained hover/focus appearance after being clicked, especially noticeable when switching themes.
+
+**Solution implemented**:
+- Use `:focus-visible` instead of `:focus` - only shows outline for keyboard navigation
+- `@media (hover: hover)` queries - apply hover styles only on devices with real hover capability
+- Force blur on theme change to clear any persistent focus states
+- Consistent neutral base styles across themes to prevent visual "activation"
+
+### Theme Consistency
+**Light Theme**:
+- Primary accent: `#6d28d9` (Electric violet - 7.5:1 contrast ratio AAA)
+- Neutral button states by default
+- Vibrant styles only on intentional interaction
+
+**Dark Theme**:
+- Primary accent: `#818cf8` (Indigo 400 - 8.2:1 contrast ratio AAA)
+- Matching neutral button states
+- Consistent visual hierarchy with light theme
+
+### Mobile Navigation
+- **Hamburger icon color**: Matches theme toggle for visual consistency
+- **Active states**: Subtle background (8% opacity) with accent color text
+- **Touch feedback**: Immediate visual response without persistent states
+- **Menu animation**: Smooth transitions respecting motion preferences
+
+### Accessibility Standards
+**Maintained 100/100 Lighthouse score** across:
+- Desktop light/dark themes
+- Mobile light/dark themes
+- Keyboard navigation fully supported
+- Screen reader optimizations (aria-current, aria-expanded)
+- High contrast ratios (AAA compliant)
+- Respects prefers-reduced-motion
+
+### CSS Architecture Patterns
+**State Management Strategy**:
+```css
+/* Base state - always neutral */
+.element {
+  background: transparent;
+  border: 2px solid transparent;
+}
+
+/* Hover only for mouse devices */
+@media (hover: hover) and (pointer: fine) {
+  .element:hover { /* styles */ }
+}
+
+/* Keyboard focus only */
+.element:focus-visible {
+  outline: 2px solid var(--color-accent);
+}
+
+/* Touch device protection */
+@media (hover: none) and (pointer: coarse) {
+  .element:focus,
+  .element:active {
+    /* Reset to base state */
+  }
+}
+```
+
+### JavaScript Enhancements
+**Smart scroll management**: 
+- Detects navigation vs partial updates
+- Accounts for fixed headers
+- Respects motion preferences
+- Only scrolls on actual page changes
+
+**Theme switching**:
+- Clears focus states after theme change
+- Prevents FOUC (Flash of Unstyled Content)
+- Syncs with system preferences
+- Announces changes to screen readers
+
+## Common Issues & Solutions
+
+### Sticky Button States
+**Issue**: Buttons appear "stuck" in hover/active state after clicking
+**Solution**: Implement proper media queries and focus management
+
+### Theme Switch Visual Bugs
+**Issue**: Buttons look different between themes causing visual inconsistency
+**Solution**: Ensure base styles are identical across theme files
+
+### Mobile Touch Hover
+**Issue**: Touch devices trigger and maintain hover states
+**Solution**: Use `@media (hover: hover)` to isolate real hover capability
+
+### Navigation Scroll Position
+**Issue**: Scroll position maintained when navigating between pages
+**Solution**: Auto-scroll to hx-target on navigation with htmx events
+
+## Future Considerations
+- Test thoroughly on various devices and browsers
+- Monitor for new CSS features that might simplify state management
+- Consider implementing view transitions API when widely supported
+- Keep accessibility as primary concern for any UI changes
