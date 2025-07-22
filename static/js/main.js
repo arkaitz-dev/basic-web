@@ -522,6 +522,44 @@ document.body.addEventListener("htmx:afterSwap", (e) => {
   // Announce navigation to screen readers
   const pageTitle = document.querySelector("h1")?.textContent || "Page loaded";
   AccessibilityManager.announce(`Navigated to ${pageTitle}`);
+  
+  // Scroll to the top of the hx-target element when navigating
+  // Check if this is a navigation event with URL change
+  const isNavigation = e.detail.xhr && (
+    e.detail.xhr.getResponseHeader("HX-Push-Url") || 
+    e.detail.pathInfo.finalPath !== window.location.pathname
+  );
+  
+  if (isNavigation) {
+    // Get the target element where content was swapped
+    const targetElement = e.detail.target;
+    
+    if (targetElement) {
+      // Calculate the position of the target element
+      const targetRect = targetElement.getBoundingClientRect();
+      const absoluteTop = targetRect.top + window.pageYOffset;
+      
+      // Account for any fixed headers
+      const header = document.querySelector("header");
+      const headerHeight = header ? header.offsetHeight : 0;
+      const scrollPosition = absoluteTop - headerHeight - 20; // 20px extra padding
+      
+      // Respect user motion preferences
+      const shouldReduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      
+      if (shouldReduceMotion) {
+        // Instant scroll for users who prefer reduced motion
+        window.scrollTo(0, scrollPosition);
+      } else {
+        // Smooth scroll to the target element
+        window.scrollTo({
+          top: scrollPosition,
+          left: 0,
+          behavior: "smooth"
+        });
+      }
+    }
+  }
 });
 
 // Export for global access
