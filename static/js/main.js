@@ -42,6 +42,17 @@ const ThemeManager = {
     // Store preference
     localStorage.setItem("theme", theme);
     
+    // Clear any sticky focus states after theme change
+    const themeButton = document.getElementById("theme-toggle");
+    if (themeButton && document.activeElement === themeButton) {
+      // Force blur and remove any persistent classes
+      themeButton.blur();
+      // Small delay to ensure style transition is complete
+      setTimeout(() => {
+        themeButton.blur(); // Double blur for stubborn browsers
+      }, 50);
+    }
+    
     // Re-enable transitions after a brief delay
     requestAnimationFrame(() => {
       document.documentElement.style.removeProperty('--transition-theme');
