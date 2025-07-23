@@ -312,8 +312,45 @@ code {
   }
 }
 
-/* Mobile navigation active state for dark theme */
+/* Mobile navigation styling for dark theme */
 @media (max-width: 806px) {
+  /* Mobile Navigation Links - Dark Theme */
+  .nav-links .nav-link {
+    font-size: calc(var(--font-size-base) * 1.15);
+    padding: var(--space-4) var(--space-5);
+    border-radius: var(--radius-lg);
+    background: rgba(51, 65, 85, 0.5); /* Slate 700 with transparency */
+    border: 1px solid rgba(129, 140, 248, 0.1);
+    margin: var(--space-1) 0;
+    transition: all var(--transition-base);
+    backdrop-filter: blur(8px);
+  }
+  
+  /* Only apply hover on devices that actually support hover (not touch) */
+  @media (hover: hover) and (pointer: fine) {
+    .nav-links .nav-link:hover {
+      background: rgba(71, 85, 105, 0.7); /* Slate 600 with transparency */
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+      box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.2),
+        inset 0 -2px 0 rgba(129, 140, 248, 0.3);
+      transform: translateX(4px);
+    }
+  }
+  
+  /* Prevent sticky states on touch devices in mobile menu */
+  @media (hover: none) and (pointer: coarse) {
+    .nav-links .nav-link:focus,
+    .nav-links .nav-link:active {
+      background: rgba(51, 65, 85, 0.5) !important;
+      border: 1px solid rgba(129, 140, 248, 0.1) !important;
+      color: var(--color-text-primary) !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
+  }
+  
   /* Mobile menu active state - consistent with light theme */
   .nav-links .nav-link.active {
     color: var(--color-accent);

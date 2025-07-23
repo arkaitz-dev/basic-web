@@ -506,15 +506,16 @@ footer a:hover {
     );
   }
   
-  /* Mobile Navigation Links */
+  /* Mobile Navigation Links - Light Theme */
   .nav-links .nav-link {
-    font-size: 1.125rem;
-    padding: 1rem 1.5rem;
-    border-radius: 12px;
+    font-size: calc(var(--font-size-base) * 1.15);
+    padding: var(--space-4) var(--space-5);
+    border-radius: var(--radius-lg);
     background: rgba(255, 255, 255, 0.5);
     border: 1px solid rgba(139, 92, 246, 0.1);
-    margin-bottom: 0.5rem;
-    transition: all 0.3s ease;
+    margin: var(--space-1) 0;
+    transition: all var(--transition-base);
+    backdrop-filter: blur(8px);
   }
   
   /* Only apply hover on devices that actually support hover (not touch) */
@@ -534,8 +535,8 @@ footer a:hover {
   @media (hover: none) and (pointer: coarse) {
     .nav-links .nav-link:focus,
     .nav-links .nav-link:active {
-      background: rgba(221, 214, 254, 0.95) !important;
-      border-color: rgba(139, 92, 246, 0.2) !important;
+      background: rgba(255, 255, 255, 0.5) !important;
+      border: 1px solid rgba(139, 92, 246, 0.1) !important;
       color: var(--color-text-primary) !important;
       box-shadow: none !important;
       transform: none !important;
